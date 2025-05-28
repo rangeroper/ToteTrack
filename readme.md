@@ -4,6 +4,8 @@ A full-stack inventory management application built with FastAPI (backend) and R
 
 ---
 
+**Demo:** [https://qr-storage.onrender.com/](https://qr-storage.onrender.com/)
+
 ## 🚀 Getting Started
 
 ### Prerequisites
