@@ -1,6 +1,6 @@
 # Inventory Management Suite
 
-A full-stack inventory management application built with **FastAPI** (backend) and **React** (frontend). Designed for efficient storage control with tagging, filtering, and fast item manipulation.
+A full-stack inventory management application built with FastAPI (backend) and React (frontend). Designed for efficient storage control with tagging, filtering, and fast item manipulation — plus QR code generation for every tote, enabling quick tracking, content visibility, and location identification at a glance.
 
 ---
 
@@ -74,10 +74,19 @@ This will run the frontend on `http://localhost:3000`.
 
 ## ✨ Features
 
-* Create, edit, delete inventory totes
-* Assign tags to totes
-* Sort and filter totes by name, tag, and last updated
-* Responsive and modern UI
+📦 Create, edit, and delete inventory totes
+
+🏷️ Assign and manage tags for easier classification
+
+🔍 Sort and filter totes by name, tags, and last updated
+
+🧾 View contents of individual totes
+
+📍 Track tote location (aisle, row, shelf, etc.)
+
+⚡ Generate and scan QR codes for each tote to instantly locate and identify them
+
+💻 Responsive, modern UI built with React
 
 ---
 
@@ -89,7 +98,6 @@ This will run the frontend on `http://localhost:3000`.
 * `GET /totes/{id}` - Get a tote by ID
 * `POST /totes` - Create a new tote
 * `PATCH /totes/{id}` - Edit tote (partial)
-* `PUT /totes/{id}` - Full edit/update tote
 * `DELETE /totes/{id}` - Delete tote
 
 ### Tag Routes
