@@ -1,6 +1,8 @@
 # Inventory Management Suite
 
-A full-stack inventory management application built with FastAPI (backend) and React (frontend). Designed for efficient storage control with tagging, filtering, and fast item manipulation — plus QR code generation for every tote, enabling quick tracking, content visibility, and location identification at a glance.  Add photos of your tote contents so you never have to remember what you stored in the tote.  Never have to guess where your totes are located, what is in each tote, or forget about your perishables or electronics again.
+A full-stack inventory management application built with FastAPI (backend) and React (frontend). It offers efficient storage control with powerful tagging, filtering, and fast item manipulation. Each tote is assigned a unique QR code for instant tracking (point your camera at the QR code and be redirected to the totes page), content visibility, and precise location identification at a glance.
+
+Add photos of your tote contents to never forget what you’ve stored inside. Say goodbye to guessing where your totes are, what’s inside them, or worrying about perishables and electronics being misplaced or forgotten.
 
 ---
 
