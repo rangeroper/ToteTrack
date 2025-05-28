@@ -1,0 +1,224 @@
+/* ToteList.css */
+
+.tote-list-container {
+  max-width: 1000px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 1rem 1.5rem;
+  box-sizing: border-box;
+}
+
+.tote-list-header {
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.add-tote-btn {
+  padding: 8px 16px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.add-tote-btn:hover,
+.add-tote-btn:focus {
+  background-color: #218838;
+  outline: none;
+}
+
+.add-tote-bottom-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 2rem; 
+  padding-bottom: 1rem; 
+}
+
+.tote-table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid #ddd;
+  font-size: 0.95rem;
+  table-layout: auto;
+  min-width: 250px; 
+}
+
+.tote-table thead {
+  background-color: #f9f9f9;
+}
+
+.tote-table th,
+.tote-table td {
+  text-align: left;
+  padding: 10px 8px;
+  border-bottom: 1px solid #ddd;
+  color: #333;
+  vertical-align: middle;
+}
+
+.tote-table th {
+  font-weight: 600;
+}
+
+.tote-table tbody tr {
+  border-bottom: 1px solid #eee;
+  transition: background 0.2s;
+  cursor: default;
+}
+
+.tote-table tbody tr:hover,
+.tote-table tbody tr:focus-within {
+  background: #fafafa;
+}
+
+.tote-tags em,
+.tote-no-images em,
+.tote-no-qr em {
+  font-style: italic;
+  color: #777;
+}
+
+.image-gallery {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.image-gallery img {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  transition: box-shadow 0.2s ease;
+}
+
+.image-gallery img:hover,
+.image-gallery img:focus {
+  box-shadow: 0 0 6px #007bff;
+  outline: none;
+}
+
+.qr-image {
+  width: 60px;
+  height: 60px;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  border: none !important;
+}
+
+.action-link {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.action-link:hover,
+.action-link:focus {
+  text-decoration: underline;
+  outline: none;
+}
+
+.delete-btn {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.2s ease;
+}
+
+.delete-btn:hover,
+.delete-btn:focus {
+  background-color: #c82333;
+  outline: none;
+}
+
+/* Zoomed Image Overlay */
+.zoom-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0,0,0,0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: zoom-out;
+  z-index: 1000;
+}
+
+.zoom-overlay img {
+  max-width: 90%;
+  max-height: 90%;
+  border-radius: 8px;
+  box-shadow: 0 0 20px rgba(255,255,255,0.3);
+}
+
+/* Responsive: Mobile Tables */
+/* On small screens, convert the table to block cards */
+@media (max-width: 900px) {
+  .tote-table {
+    display: block;
+    width: 100%;
+  }
+
+  .tote-table thead {
+    display: none;
+  }
+
+  .tote-table tbody {
+    display: block;
+    width: 100%;
+  }
+
+  .tote-table tbody tr {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    margin-bottom: 16px;
+    padding: 12px 16px;
+    background: #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  }
+
+  .tote-table tbody td {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid #eee;
+  }
+
+  .tote-table tbody td:last-child {
+    border-bottom: none;
+  }
+
+  .tote-table tbody td::before {
+    content: attr(data-label);
+    font-weight: 600;
+    color: #333;
+    flex-basis: 40%;
+    flex-shrink: 0;
+  }
+
+  .image-gallery {
+    justify-content: flex-start;
+  }
+}
+
