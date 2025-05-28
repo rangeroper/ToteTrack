@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-const apiBase = "http://localhost:8000"; // Adjust API base URL
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
 export default function TagsManager() {
   const [tags, setTags] = useState([]);
@@ -18,7 +18,7 @@ export default function TagsManager() {
   async function fetchTags() {
     setLoading(true);
     try {
-      const res = await axios.get(`${apiBase}/tags/`);
+      const res = await axios.get(`${API_BASE_URL}/tags/`);
       setTags(res.data.tags);
       setError("");
     } catch (e) {
@@ -31,7 +31,7 @@ export default function TagsManager() {
   async function createTag() {
     if (!newTagName.trim()) return;
     try {
-      await axios.post(`${apiBase}/tags/`, { name: newTagName.trim() });
+      await axios.post(`${API_BASE_URL}/tags/`, { name: newTagName.trim() });
       setNewTagName("");
       fetchTags();
       setError("");
@@ -55,7 +55,7 @@ export default function TagsManager() {
   async function saveEdit() {
     if (!editingTagName.trim()) return;
     try {
-      await axios.patch(`${apiBase}/tags/${editingTagId}`, { name: editingTagName.trim() });
+      await axios.patch(`${API_BASE_URL}/tags/${editingTagId}`, { name: editingTagName.trim() });
       setEditingTagId(null);
       setEditingTagName("");
       fetchTags();
@@ -68,7 +68,7 @@ export default function TagsManager() {
   async function deleteTag(id) {
     if (!window.confirm("Delete this tag? This will remove it from all totes.")) return;
     try {
-      await axios.delete(`${apiBase}/tags/${id}`);
+      await axios.delete(`${API_BASE_URL}/tags/${id}`);
       fetchTags();
       setError("");
     } catch (e) {

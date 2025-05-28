@@ -9,12 +9,14 @@ export default function ToteDetail() {
     const [error, setError] = useState(null);
     const [deleting, setDeleting] = useState(false);
     const [zoomedImage, setZoomedImage] = useState(null);
+
+    const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
     
     useEffect(() => {
         const controller = new AbortController();
         const fetchTote = async () => {
             try {
-                const res = await fetch(`http://localhost:8000/totes/${id}`, { signal: controller.signal });
+                const res = await fetch(`${API_BASE_URL}/totes/${id}`, { signal: controller.signal });
                 if (!res.ok) throw new Error("Failed to fetch tote");
                 const data = await res.json();
                 setTote(data.tote);
@@ -41,7 +43,7 @@ export default function ToteDetail() {
         if (!window.confirm("Are you sure you want to delete this tote?")) return;
         setDeleting(true);
         try {
-            const res = await fetch(`http://localhost:8000/totes/${id}`, { method: "DELETE" });
+            const res = await fetch(`${API_BASE_URL}/totes/${id}`, { method: "DELETE" });
             if (!res.ok) {
                 const errorData = await res.json();
                 throw new Error(errorData.detail || "Failed to delete tote");

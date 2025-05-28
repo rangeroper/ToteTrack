@@ -10,12 +10,14 @@ export default function ToteList() {
   const [filteredTotes, setFilteredTotes] = useState([]);
   const [zoomedImage, setZoomedImage] = useState(null);
 
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
   const navigate = useNavigate(); // added
 
   useEffect(() => {
     const fetchTotes = async () => {
       try {
-        const response = await fetch("http://localhost:8000/totes");
+        const response = await fetch(`${API_BASE_URL}/totes`);
         if (!response.ok) throw new Error("Failed to fetch totes");
         const { totes: fetchedTotes } = await response.json();
         setTotes(fetchedTotes);
@@ -33,7 +35,7 @@ export default function ToteList() {
     e.stopPropagation(); // prevent triggering row click
     if (!window.confirm(`Delete tote with ID ${idToDelete}?`)) return;
     try {
-      const res = await fetch(`http://localhost:8000/totes/${idToDelete}`, { method: "DELETE" });
+      const res = await fetch(`${API_BASE_URL}/totes/${idToDelete}`, { method: "DELETE" });
       if (!res.ok) throw new Error("Failed to delete tote");
       setTotes((prev) => prev.filter((t) => t.id !== idToDelete));
       setFilteredTotes((prev) => prev.filter((t) => t.id !== idToDelete));
