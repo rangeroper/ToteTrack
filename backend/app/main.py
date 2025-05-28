@@ -24,7 +24,7 @@ app = FastAPI(
 # CORS origins - add your frontend URLs here
 origins = [
     "http://localhost:3000",  # React dev server
-    # Add production frontend URLs here, e.g. "https://myfrontend.com"
+    "https://qr-storage.onrender.com"
 ]
 
 app.add_middleware(
