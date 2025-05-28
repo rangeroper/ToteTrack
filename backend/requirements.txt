@@ -1,6 +1,6 @@
 fastapi
 uvicorn[standard]
-motor==3.3.1
-pymongo==4.5.0
+motor==3.1.2
+pymongo==4.3.3
 python-dotenv
 qrcode
