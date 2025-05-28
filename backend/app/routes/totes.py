@@ -59,7 +59,7 @@ async def create_tote(
     tote_id = str(result.inserted_id)
 
     # Generate QR code using the MongoDB ID
-    qr_url = f"https://qr-storage.onrender.com/totes/{tote_id}"
+    qr_url = f"https://qr-storage.onrender.com//#/totes/{tote_id}"
     qr_img = qrcode.make(qr_url)
     buf = BytesIO()
     qr_img.save(buf, format="PNG")
