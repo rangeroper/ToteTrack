@@ -18,6 +18,7 @@ export default function ToteFormSkeleton({
   onImageRemove,
   setZoomedImg,
 }) {
+  const [zoomedImg, setZoomedImg] = useState<string | null>(null);
   return (
     <form onSubmit={onSubmit} style={formWrapper}>
       <input
@@ -101,23 +102,10 @@ export default function ToteFormSkeleton({
           Images
         </label>
 
-        <input
-          type="file"
-          accept="image/*"
-          multiple
-          onChange={(e) => {
-            if (e.target.files.length > 0) {
-              onImageAdd(e.target.files);
-              e.target.value = null;
-            }
-          }}
-          style={{ marginBottom: 20 }}
-        />
-
         <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', alignItems: 'center' }}>
           {images &&
             images.map((img, idx) => {
-              const src = img.preview || img; // Fallback if not using .preview
+              const src = img.preview || img;
 
               return (
                 <div key={idx} style={imageCardStyle}>
@@ -144,9 +132,42 @@ export default function ToteFormSkeleton({
                 </div>
               );
             })}
+
+          {/* Image Picker Tile */}
+          <label style={plusIconStyle}>
+            +
+            <input
+              type="file"
+              accept="image/*"
+              multiple
+              onChange={(e) => {
+                if (e.target.files.length > 0) {
+                  onImageAdd(e.target.files);
+                  e.target.value = null;
+                }
+              }}
+              style={{ display: 'none' }}
+            />
+          </label>
         </div>
       </section>
 
+      {zoomedImg && (
+        <div
+          onClick={() => setZoomedImg(null)}
+          style={{
+            position: 'fixed',
+            top: 0, left: 0, right: 0, bottom: 0,
+            backgroundColor: 'rgba(0, 0, 0, 0.8)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            zIndex: 1000,
+          }}
+        >
+          <img src={zoomedImg} style={{ maxWidth: '90%', maxHeight: '90%' }} alt="Zoomed" />
+        </div>
+      )}
 
       <button type="submit" style={buttonStyle}>
         {submitLabel}
@@ -294,4 +315,18 @@ const deleteImageBtn = {
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
+};
+
+const plusIconStyle = {
+  width: 150,
+  height: 150,
+  border: '2px dashed #ccc',
+  borderRadius: 6,
+  fontSize: 40,
+  color: '#999',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  cursor: 'pointer',
+  transition: 'opacity 0.3s ease',
 };
