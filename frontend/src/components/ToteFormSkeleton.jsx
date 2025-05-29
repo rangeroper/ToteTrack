@@ -17,7 +17,7 @@ export default function ToteFormSkeleton({
   onImageAdd,
   onImageRemove,
 }) {
-  const [zoomedImg, setZoomedImg] = useState<string | null>(null);
+  const [zoomedImg, setZoomedImg] = useState(null);
   return (
     <form onSubmit={onSubmit} style={formWrapper}>
       <input
