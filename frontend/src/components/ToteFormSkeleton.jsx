@@ -16,6 +16,7 @@ export default function ToteFormSkeleton({
   images,
   onImageAdd,
   onImageRemove,
+  setZoomedImg,
 }) {
   return (
     <form onSubmit={onSubmit} style={formWrapper}>
@@ -95,40 +96,57 @@ export default function ToteFormSkeleton({
         </select>
       </div>
 
-      <label style={labelStyle}>Images</label>
-      <input
-        type="file"
-        accept="image/*"
-        multiple
-        onChange={(e) => {
-          if (e.target.files.length > 0) {
-            onImageAdd(e.target.files);
-            e.target.value = null;
-          }
-        }}
-        style={fileInputStyle}
-      />
+      <section style={{ marginTop: 40 }}>
+        <label style={{ fontWeight: 'bold', fontSize: 18, display: 'block', marginBottom: 10 }}>
+          Images
+        </label>
 
-      <div style={imagePreviewWrapperStyle}>
-        {images &&
-          images.map((img, idx) => (
-            <div key={idx} style={imagePreviewStyle}>
-              <img
-                src={img.preview}
-                alt={`preview-${idx}`}
-                style={imageStyle}
-              />
-              <button
-                type="button"
-                onClick={() => onImageRemove(img.preview)}
-                style={imageRemoveButtonStyle}
-                aria-label="Remove image"
-              >
-                ×
-              </button>
-            </div>
-          ))}
-      </div>
+        <input
+          type="file"
+          accept="image/*"
+          multiple
+          onChange={(e) => {
+            if (e.target.files.length > 0) {
+              onImageAdd(e.target.files);
+              e.target.value = null;
+            }
+          }}
+          style={{ marginBottom: 20 }}
+        />
+
+        <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', alignItems: 'center' }}>
+          {images &&
+            images.map((img, idx) => {
+              const src = img.preview || img; // Fallback if not using .preview
+
+              return (
+                <div key={idx} style={imageCardStyle}>
+                  <img
+                    src={src}
+                    alt={`Preview ${idx}`}
+                    style={{
+                      width: '100%',
+                      height: 150,
+                      objectFit: 'cover',
+                      borderRadius: 6,
+                      cursor: 'pointer',
+                    }}
+                    onClick={() => setZoomedImg && setZoomedImg(src)}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => onImageRemove(img.preview || img)}
+                    style={deleteImageBtn}
+                    aria-label="Remove image"
+                  >
+                    ✕
+                  </button>
+                </div>
+              );
+            })}
+        </div>
+      </section>
+
 
       <button type="submit" style={buttonStyle}>
         {submitLabel}
@@ -251,4 +269,29 @@ const imageRemoveButtonStyle = {
   lineHeight: "18px",
   textAlign: "center",
   padding: 0,
+};
+
+const imageCardStyle = {
+  position: 'relative',
+  width: 150,
+  borderRadius: 8,
+  overflow: 'hidden',
+  boxShadow: '0 2px 6px rgba(0,0,0,0.15)',
+};
+
+const deleteImageBtn = {
+  position: 'absolute',
+  top: 4,
+  right: 4,
+  background: 'rgba(0,0,0,0.6)',
+  color: 'white',
+  border: 'none',
+  borderRadius: '50%',
+  width: 24,
+  height: 24,
+  cursor: 'pointer',
+  fontSize: 16,
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
 };
