@@ -16,7 +16,6 @@ export default function ToteFormSkeleton({
   images,
   onImageAdd,
   onImageRemove,
-  setZoomedImg,
 }) {
   const [zoomedImg, setZoomedImg] = useState<string | null>(null);
   return (
