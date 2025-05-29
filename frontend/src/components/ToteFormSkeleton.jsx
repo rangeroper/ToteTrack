@@ -96,7 +96,7 @@ export default function ToteFormSkeleton({
         </select>
       </div>
 
-      <section style={{ marginTop: 40 }}>
+      <section style={{ marginBottom: 40 }}>
         <label style={{ fontWeight: 'bold', fontSize: 18, display: 'block', marginBottom: 10 }}>
           Images
         </label>
