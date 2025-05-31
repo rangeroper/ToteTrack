@@ -78,12 +78,9 @@ This will run the frontend on `http://localhost:3000`.
 
 ## ✨ Features
 
-## ✨ Features
-
 📦 **Create, edit, and delete inventory totes**  
 Easily manage your storage units with intuitive controls.
 
-![Create Tote Feature](./frontend/public/project/images/create_tote.png)  
 ![Edit Tote Feature](./frontend/public/project/images/edit_tote.png)
 
 ---
