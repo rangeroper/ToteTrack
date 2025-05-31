@@ -58,8 +58,6 @@ export default function ToteDetail() {
 
     return (
         <div style={{ padding: "2rem", maxWidth: "800px", margin: "0 auto" }}>
-
-            
             <button
                 onClick={() => navigate("/totes")}
                 style={{

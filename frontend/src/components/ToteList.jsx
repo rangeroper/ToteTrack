@@ -109,16 +109,15 @@ export default function ToteList() {
               handleSort(key, direction);
             }}
           >
-            {Object.entries(sortableColumns).map(([key, label]) => (
-              <>
-                <option key={`${key}-asc`} value={`${key}-asc`}>
-                  {label} (A-Z)
-                </option>
-                <option key={`${key}-desc`} value={`${key}-desc`}>
-                  {label} (Z-A)
-                </option>
-              </>
-            ))}
+           {Object.entries(sortableColumns).flatMap(([key, label]) => [
+            <option key={`${key}-asc`} value={`${key}-asc`}>
+              {label} (A-Z)
+            </option>,
+            <option key={`${key}-desc`} value={`${key}-desc`}>
+              {label} (Z-A)
+            </option>
+          ])}
+
           </select>
         </div>
 
@@ -266,11 +265,11 @@ export default function ToteList() {
         </div>
       )}
 
-      <div className="add-tote-bottom-container">
-        <Link to="/create">
-          <button className="add-tote-btn">+ Add New Tote</button>
-        </Link>
-      </div>
+      <Link to="/create">
+        <button className="add-tote-btn-floating" aria-label="Add new tote">+ Add New Tote</button>
+      </Link>
+
+
     </div>
   );
 }

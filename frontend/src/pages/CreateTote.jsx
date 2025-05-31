@@ -1,9 +1,11 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import ToteFormSkeleton from "../components/ToteFormSkeleton";
 import useToteForm from "../hooks/useToteForm";
 import GenerateBarcode from "../components/GenerateBarcode";
 
 export default function CreateTote() {
+  const navigate = useNavigate();
 
   const {
     formData,
@@ -27,6 +29,22 @@ export default function CreateTote() {
 
   return (
     <div style={{ padding: "2rem", maxWidth: 600, margin: "auto" }}>
+      <button
+          onClick={() => navigate("/totes")}
+          style={{
+              padding: "10px 16px",
+              backgroundColor: "#007bff",
+              color: "#fff",
+              border: "none",
+              borderRadius: 4,
+              fontWeight: "bold",
+              cursor: "pointer",
+              marginBottom: "1.5rem",
+          }}
+      >
+      ← Back to All Totes
+      </button>
+
       <h2>Create Tote</h2>
       <GenerateBarcode barcode={formData.barcode} setBarcode={setBarcode} />
 
