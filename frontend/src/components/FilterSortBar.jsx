@@ -6,7 +6,7 @@ export default function FilterSortBar({ totes, onFilteredChange }) {
   const [sortValue, setSortValue] = useState("");
 
   const [showFilters, setShowFilters] = useState(false);
-  const [selectedTag, setSelectedTag] = useState("");
+  const [selectedTags, setSelectedTags] = useState([]);
   const [weightCondition, setWeightCondition] = useState("any");
   const [weightThreshold, setWeightThreshold] = useState("");
   const [imageFilter, setImageFilter] = useState("any");
@@ -16,9 +16,14 @@ export default function FilterSortBar({ totes, onFilteredChange }) {
     new Set(totes.flatMap((t) => t.tags || []))
   ).sort();
 
-  // Derived filters for chip display
-  const activeFilters = [
-    selectedTag && { label: `Tag: ${selectedTag}`, key: "tag" },
+    // Derived filters for chip display
+    const activeFilters = [
+    ...selectedTags.map((tag) => ({
+      label: `Tag: ${tag}`,
+      key: "tag",
+      value: tag,
+    })),
+
     weightThreshold && {
       label:
         weightCondition === "any"
@@ -47,8 +52,10 @@ export default function FilterSortBar({ totes, onFilteredChange }) {
       );
     }
 
-    if (selectedTag) {
-      filtered = filtered.filter((t) => t.tags?.includes(selectedTag));
+    if (selectedTags.length > 0) {
+      filtered = filtered.filter((t) =>
+        t.tags?.some((tag) => selectedTags.includes(tag))
+      );
     }
 
     if (weightThreshold) {
@@ -112,7 +119,7 @@ export default function FilterSortBar({ totes, onFilteredChange }) {
     filterText,
     sortValue,
     totes,
-    selectedTag,
+    selectedTags,
     weightCondition,
     weightThreshold,
     imageFilter,
@@ -121,10 +128,14 @@ export default function FilterSortBar({ totes, onFilteredChange }) {
   ]);
 
   // Remove filter
-  const removeFilter = (key) => {
+  const removeFilter = (key, value = null) => {
     switch (key) {
       case "tag":
-        setSelectedTag("");
+        if (value) {
+          setSelectedTags((prev) => prev.filter((tag) => tag !== value));
+        } else {
+          setSelectedTags([]);
+        }
         break;
       case "weight":
         setWeightThreshold("");
@@ -140,6 +151,15 @@ export default function FilterSortBar({ totes, onFilteredChange }) {
       default:
         break;
     }
+  };
+
+  const clearAllFilters = () => {
+    setFilterText("");
+    setSelectedTags([]);
+    setWeightCondition("any");
+    setWeightThreshold("");
+    setImageFilter("any");
+    setMinImages("");
   };
 
   return (
@@ -162,18 +182,27 @@ export default function FilterSortBar({ totes, onFilteredChange }) {
       {/* Dynamic Filters Panel */}
       {showFilters && (
         <div className="filters-panel">
-          <select
-            className="filter-select"
-            value={selectedTag}
-            onChange={(e) => setSelectedTag(e.target.value)}
-          >
-            <option value="">Filter by Tag</option>
-            {tagOptions.map((tag) => (
-              <option key={tag} value={tag}>
-                {tag}
-              </option>
-            ))}
-          </select>
+          <div className="filter-group">
+            <label htmlFor="tag-filter">Filter by Tag:</label>
+            <select
+              id="tag-filter"
+              className="filter-select"
+              value=""
+              onChange={(e) => {
+                const selectedTag = e.target.value;
+                if (selectedTag && !selectedTags.includes(selectedTag)) {
+                  setSelectedTags((prev) => [...prev, selectedTag]);
+                }
+              }}
+            >
+              <option value="">Select a tag...</option>
+              {tagOptions.map((tag) => (
+                <option key={tag} value={tag} disabled={selectedTags.includes(tag)}>
+                  {tag}
+                </option>
+              ))}
+            </select>
+          </div>
 
           <div className="filter-group">
             <select
@@ -223,14 +252,25 @@ export default function FilterSortBar({ totes, onFilteredChange }) {
       <div className="active-filters">
         {activeFilters.map((f) => (
           <button
-            key={f.key}
+            key={`${f.key}-${f.value || ""}`}
             className="filter-chip"
-            onClick={() => removeFilter(f.key)}
+            onClick={() => removeFilter(f.key, f.value)}
           >
             {f.label} <span className="remove-x">×</span>
           </button>
         ))}
+
+        {activeFilters.length > 0 && (
+          <button
+            className="clear-all-filters-btn"
+            onClick={clearAllFilters}
+            aria-label="Clear all filters"
+          >
+            Clear All Filters
+          </button>
+        )}
       </div>
+
     </div>
   );
 }
