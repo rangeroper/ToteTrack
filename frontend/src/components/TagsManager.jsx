@@ -54,7 +54,17 @@ export default function TagsManager() {
 
   async function saveEdit() {
     if (!editingTagName.trim()) return;
+
     try {
+      // Fetch count of affected totes for current tag
+      const res = await axios.get(`${API_BASE_URL}/tags/${editingTagId}/affected-count`);
+      const count = res.data.affected_count;
+
+      // Confirm rename with count
+      if (!window.confirm(`Renaming this tag will update ${count} tote${count !== 1 ? 's' : ''}. Proceed?`)) {
+        return;
+      }
+
       await axios.patch(`${API_BASE_URL}/tags/${editingTagId}`, { name: editingTagName.trim() });
       setEditingTagId(null);
       setEditingTagName("");
@@ -66,8 +76,14 @@ export default function TagsManager() {
   }
 
   async function deleteTag(id) {
-    if (!window.confirm("Delete this tag? This will remove it from all totes.")) return;
     try {
+      const res = await axios.get(`${API_BASE_URL}/tags/${id}/affected-count`);
+      const count = res.data.affected_count;
+
+      if (!window.confirm(`Deleting this tag will remove it from ${count} tote${count !== 1 ? 's' : ''}. Proceed?`)) {
+        return;
+      }
+
       await axios.delete(`${API_BASE_URL}/tags/${id}`);
       fetchTags();
       setError("");
@@ -136,7 +152,8 @@ export default function TagsManager() {
                 justifyContent: "space-between",
                 alignItems: "center",
                 padding: "8px 0",
-                borderBottom: "1px solid #eee"
+                borderBottom: "1px solid #eee",
+                color: "#333",
               }}
             >
               {editingTagId === tag.id ? (

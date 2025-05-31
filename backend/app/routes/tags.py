@@ -42,6 +42,18 @@ async def list_tags():
         tags.append(serialize_tag(doc))
     return {"tags": tags}
 
+# Returns number of totes attached to given tag id
+@router.get("/{tag_id}/affected-count")
+async def get_affected_count(tag_id: str):
+    tag_obj_id = ObjectId(tag_id)
+    tag = await tags_collection.find_one({"_id": tag_obj_id})
+    if not tag:
+        raise HTTPException(status_code=404, detail="Tag not found")
+
+    count = await totes_collection.count_documents({"tags": tag["name"]})
+    return {"affected_count": count}
+
+
 
 @router.patch("/{tag_id}")
 async def rename_tag(tag_id: str, tag_update: TagUpdate):

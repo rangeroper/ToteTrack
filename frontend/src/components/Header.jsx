@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import Settings from "./Settings"; // Adjust path
 
 export default function Header() {
+  const [showSettings, setShowSettings] = useState(false);
+
   return (
     <header
       style={{
         display: "flex",
-        flexWrap: "wrap", // allow wrapping on small screens
         alignItems: "center",
         justifyContent: "space-between",
         padding: "1rem",
@@ -45,12 +47,13 @@ export default function Header() {
             whiteSpace: "nowrap",
             overflow: "hidden",
             textOverflow: "ellipsis",
-            maxWidth: "70vw", // prevent overflow
+            maxWidth: "70vw",
           }}
         >
           Inventory Management Suite
         </h1>
       </Link>
+
       <nav
         style={{
           marginLeft: "auto",
@@ -58,10 +61,28 @@ export default function Header() {
           flexBasis: "100%",
           display: "flex",
           justifyContent: "flex-end",
+          alignItems: "center",
         }}
       >
-        {/* Future nav links here */}
+        <button
+          onClick={() => setShowSettings(true)}
+          style={{
+            backgroundColor: "transparent",
+            border: "1px solid white",
+            borderRadius: "4px",
+            color: "white",
+            padding: "0.3rem 0.8rem",
+            cursor: "pointer",
+            fontWeight: "bold",
+            fontSize: "1rem",
+          }}
+          aria-label="Open Settings"
+        >
+          Settings ⚙️
+        </button>
       </nav>
+
+      {showSettings && <Settings onClose={() => setShowSettings(false)} />}
     </header>
   );
 }

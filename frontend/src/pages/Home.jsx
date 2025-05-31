@@ -19,22 +19,7 @@ export default function Home() {
         >
           Add New Tote
         </Link>
-        {/* New button to manage tags */}
-        <Link
-          to="/tags"
-          style={{
-            textDecoration: "none",
-            color: "rgb(0, 123, 255)",
-            fontWeight: "bold",
-            border: "1px solid rgb(0, 123, 255)",
-            padding: "0.5rem 1rem",
-            borderRadius: "4px",
-            marginLeft: "1rem",
-            display: "inline-block",
-          }}
-        >
-          Manage Tags
-        </Link>
+        {/* Remove Manage Tags here, will be in Settings */}
       </nav>
     </div>
   );
