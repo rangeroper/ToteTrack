@@ -67,3 +67,43 @@
   flex: 1;
   min-width: 100px;
 }
+
+.toggle-filters-btn {
+  padding: 0.5em 1em;
+  margin-left: 1em;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.filters-panel {
+  margin-top: 1em;
+  display: flex;
+  gap: 1em;
+  flex-wrap: wrap;
+}
+
+.active-filters {
+  margin-top: 0.75em;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5em;
+}
+
+.filter-chip {
+  background: #e0e0e0;
+  border: none;
+  border-radius: 20px;
+  padding: 0.4em 0.75em;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+}
+
+.filter-chip .remove-x {
+  font-weight: bold;
+  color: red;
+}

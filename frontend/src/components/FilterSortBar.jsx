@@ -1,31 +1,35 @@
 import React, { useState, useEffect } from "react";
 import "./FilterSortBar.css";
 
-const sortOptions = [
-  { value: "barcode_asc", label: "Barcode (A-Z)" },
-  { value: "barcode_desc", label: "Barcode (Z-A)" },
-  { value: "weight_asc", label: "Weight (Low to High)" },
-  { value: "weight_desc", label: "Weight (High to Low)" },
-  { value: "location_asc", label: "Location (A-Z)" },
-  { value: "location_desc", label: "Location (Z-A)" },
-  { value: "tags_asc", label: "Tags (A-Z)" },
-  { value: "tags_desc", label: "Tags (Z-A)" },
-];
-
 export default function FilterSortBar({ totes, onFilteredChange }) {
   const [filterText, setFilterText] = useState("");
   const [sortValue, setSortValue] = useState("");
 
+  const [showFilters, setShowFilters] = useState(false);
   const [selectedTag, setSelectedTag] = useState("");
   const [weightCondition, setWeightCondition] = useState("any");
   const [weightThreshold, setWeightThreshold] = useState("");
   const [imageFilter, setImageFilter] = useState("any");
-  const [minImages, setMinImages] = useState('');
+  const [minImages, setMinImages] = useState("");
 
   const tagOptions = Array.from(
     new Set(totes.flatMap((t) => t.tags || []))
   ).sort();
 
+  // Derived filters for chip display
+  const activeFilters = [
+    selectedTag && { label: `Tag: ${selectedTag}`, key: "tag" },
+    weightThreshold &&
+      weightCondition !== "any" && {
+        label: `Weight: ${weightCondition} ${weightThreshold} lbs`,
+        key: "weight",
+      },
+    imageFilter === "none" && { label: "No Images", key: "image_none" },
+    imageFilter === "min" &&
+      minImages && { label: `Min Images: ${minImages}`, key: "image_min" },
+  ].filter(Boolean);
+
+  // Filter logic
   useEffect(() => {
     let filtered = totes;
 
@@ -45,20 +49,16 @@ export default function FilterSortBar({ totes, onFilteredChange }) {
       filtered = filtered.filter((t) => t.tags?.includes(selectedTag));
     }
 
-    if (weightThreshold) {
-        const threshold = parseFloat(weightThreshold);
-        if (!isNaN(threshold)) {
-            if (weightCondition === "any") {
-                // Exact match when only weight is selected
-                filtered = filtered.filter((t) => t.weight === threshold);
-            } else if (weightCondition === "over") {
-                filtered = filtered.filter((t) => t.weight > threshold);
-            } else if (weightCondition === "under") {
-                filtered = filtered.filter((t) => t.weight < threshold);
-            }
+    if (weightThreshold && weightCondition !== "any") {
+      const threshold = parseFloat(weightThreshold);
+      if (!isNaN(threshold)) {
+        if (weightCondition === "over") {
+          filtered = filtered.filter((t) => t.weight > threshold);
+        } else if (weightCondition === "under") {
+          filtered = filtered.filter((t) => t.weight < threshold);
         }
+      }
     }
-
 
     if (imageFilter === "none") {
       filtered = filtered.filter((t) => !t.images || t.images.length === 0);
@@ -116,79 +116,117 @@ export default function FilterSortBar({ totes, onFilteredChange }) {
     onFilteredChange,
   ]);
 
-    return (
-        <div className="filter-sort-bar">
-            {/* Top Row: Search + Sort */}
-            <div className="top-row">
-                <input
-                    type="text"
-                    className="filter-input search-input"
-                    placeholder="Search barcode, description, weight, location, or tags..."
-                    value={filterText}
-                    onChange={(e) => setFilterText(e.target.value)}
-                />
-            </div>
+  // Remove filter
+  const removeFilter = (key) => {
+    switch (key) {
+      case "tag":
+        setSelectedTag("");
+        break;
+      case "weight":
+        setWeightThreshold("");
+        setWeightCondition("any");
+        break;
+      case "image_none":
+        setImageFilter("any");
+        break;
+      case "image_min":
+        setImageFilter("any");
+        setMinImages("");
+        break;
+      default:
+        break;
+    }
+  };
 
-            {/* Bottom Row: Filters */}
-            <div className="bottom-row">
-                <select
-                    className="filter-select"
-                    value={selectedTag}
-                    onChange={(e) => setSelectedTag(e.target.value)}
-                >
-                    <option value="">Filter by Tag</option>
-                    {tagOptions.map((tag) => (
-                    <option key={tag} value={tag}>
-                        {tag}
-                    </option>
-                    ))}
-                </select>
+  return (
+    <div className="filter-sort-bar">
+      {/* Top Row */}
+      <div className="top-row">
+        <input
+          type="text"
+          className="filter-input search-input"
+          placeholder="Search barcode, description, weight, location, or tags..."
+          value={filterText}
+          onChange={(e) => setFilterText(e.target.value)}
+        />
 
-                <div className="filter-group">
-                    <select
-                        className="filter-select"
-                        value={weightCondition}
-                        onChange={(e) => setWeightCondition(e.target.value)}
-                    >
-                        <option value="any">Weight</option>
-                        <option value="over">Over</option>
-                        <option value="under">Under</option>
-                    </select>
+        <button className="toggle-filters-btn" onClick={() => setShowFilters(!showFilters)}>
+          {showFilters ? "Hide Filters" : "+ Filters"}
+        </button>
+      </div>
 
-                    <input
-                        type="number"
-                        className="filter-input"
-                        placeholder="lbs"
-                        value={weightThreshold}
-                        onChange={(e) => setWeightThreshold(e.target.value)}
-                    />
-                </div>
+      {/* Dynamic Filters Panel */}
+      {showFilters && (
+        <div className="filters-panel">
+          <select
+            className="filter-select"
+            value={selectedTag}
+            onChange={(e) => setSelectedTag(e.target.value)}
+          >
+            <option value="">Filter by Tag</option>
+            {tagOptions.map((tag) => (
+              <option key={tag} value={tag}>
+                {tag}
+              </option>
+            ))}
+          </select>
 
-                <div className="filter-group">
-                    <select
-                        className="filter-select"
-                        value={imageFilter}
-                        onChange={(e) => setImageFilter(e.target.value)}
-                    >
-                        <option value="any">Images</option>
-                        <option value="none">No images</option>
-                        <option value="min">Min # of images</option>
-                    </select>
+          <div className="filter-group">
+            <select
+              className="filter-select"
+              value={weightCondition}
+              onChange={(e) => setWeightCondition(e.target.value)}
+            >
+              <option value="any">Weight</option>
+              <option value="over">Over</option>
+              <option value="under">Under</option>
+            </select>
+            <input
+              type="number"
+              className="filter-input"
+              placeholder="lbs"
+              value={weightThreshold}
+              onChange={(e) => setWeightThreshold(e.target.value)}
+            />
+          </div>
 
-                    {imageFilter === "min" && (
-                        <input
-                        type="number"
-                        min="1"
-                        className="filter-input"
-                        placeholder="#"
-                        onChange={(e) => setMinImages(e.target.value)}
-                        value={minImages}
-                        />
-                    )}
-                </div>
+          <div className="filter-group">
+            <select
+              className="filter-select"
+              value={imageFilter}
+              onChange={(e) => setImageFilter(e.target.value)}
+            >
+              <option value="any">Images</option>
+              <option value="none">No images</option>
+              <option value="min">Min # of images</option>
+            </select>
 
-            </div>
+            {imageFilter === "min" && (
+              <input
+                type="number"
+                min="1"
+                className="filter-input"
+                placeholder="#"
+                value={minImages}
+                onChange={(e) => setMinImages(e.target.value)}
+              />
+            )}
+          </div>
         </div>
-    );
+      )}
 
+      {/* Active Filter Chips */}
+      <div className="active-filters">
+        {activeFilters.map((f) => (
+          <button
+            key={f.key}
+            className="filter-chip"
+            onClick={() => removeFilter(f.key)}
+          >
+            {f.label} <span className="remove-x">×</span>
+          </button>
+        ))}
+      </div>
+    </div>
+  );
 }
