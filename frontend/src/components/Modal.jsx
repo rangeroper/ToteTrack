@@ -1,9 +1,15 @@
 import React from "react";
 
-export default function Modal({ children, onClose, showBackButton = false, onBack }) {
+export default function Modal({ children, onClose, showBackButton = false, onBack, modalStyle = {} }) {
+  const dynamicModalStyle = {
+    ...modalStyles.modal,
+    ...modalStyle,
+    padding: showBackButton ? 20 : modalStyle.padding ?? 0,
+  };
+
   return (
     <div style={modalStyles.overlay}>
-      <div style={modalStyles.modal}>
+      <div style={dynamicModalStyle}>
         <button
           style={modalStyles.closeBtn}
           onClick={showBackButton ? onBack : onClose}
@@ -29,13 +35,16 @@ const modalStyles = {
   },
   modal: {
     background: "white",
-    padding: 20,
-    borderRadius: 8,
+    borderRadius: 12,
     minWidth: "300px",
     maxWidth: "90vw",
     maxHeight: "90vh",
-    overflowY: "auto",
+    overflow: "hidden",
     position: "relative",
+    transform: "translateZ(0)", // Helps prevent bleed from background
+    WebkitBackfaceVisibility: "hidden",
+    backfaceVisibility: "hidden",
+    boxShadow: "0 12px 24px rgba(0,0,0,0.2)", // Optional: improves modal contrast
   },
   closeBtn: {
     position: "absolute",

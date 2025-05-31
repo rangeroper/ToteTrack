@@ -45,13 +45,14 @@ export default function Header() {
             margin: 0,
             fontSize: "1.25rem",
             whiteSpace: "nowrap",
-            overflow: "hidden",
             textOverflow: "ellipsis",
-            maxWidth: "70vw",
+            flexGrow: 1,
+            minWidth: 0,
           }}
         >
           Inventory Management Suite
         </h1>
+
       </Link>
 
       <nav

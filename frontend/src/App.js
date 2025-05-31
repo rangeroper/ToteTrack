@@ -11,7 +11,10 @@ import ToteList from "./components/ToteList";
 import ToteDetail from "./components/ToteDetail";
 
 import NotFoundPage from "./pages/NotFoundPage";
+
 import TagsManager from "./components/TagsManager";
+import LocationsManager from "./components/LocationsManager";
+import StatusesManager from "./components/StatusesManager";
 
 function App() {
   return (
@@ -23,7 +26,11 @@ function App() {
         <Route path="/totes/:id" element={<ToteDetail />} />
         <Route path="/totes/:id/edit/" element={<EditTote />} />
         <Route path="/create" element={<CreateTote />} />
+
         <Route path="/tags" element={<TagsManager />} />
+        <Route path="/locations" element={<LocationsManager />} />
+        <Route path="/statuses" element={<StatusesManager />} />
+                
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </Router>
