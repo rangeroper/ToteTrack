@@ -102,6 +102,7 @@ This will run the frontend on `http://localhost:3000`.
 ⚡ Generate and scan QR codes for each tote to instantly locate and identify them
 
 💻 Responsive, modern UI built with React
+![Mobile View](./frontend/public/project/images/mobile_view.png)
 
 ---
 
@@ -139,11 +140,19 @@ inventory_management/
 
 ## ✅ Coming Soon
 
-* Bulk/batch actions
-* Manage Multiple Storage Locations
-* Manage Multiple Accounts/Profiles
-* User authentication
-* Role-based access
+* Bulk and batch actions (apply changes across multiple totes or items)
+* Manage multiple storage locations
+* Support for multiple accounts and user profiles
+* User authentication and login
+* Role-based access control (e.g. admin, viewer, editor)
+* View itemized contents within each tote (including quantity and estimated value)
+* View itemized overview for each storage location (total totes, items, and estimated value)
+* Global inventory dashboard showing summary across all locations (totes, items, estimated value)
+* Global inventory dashboard showing summary across all locations (totes, items)
+* Color-coded QR codes
+* Flexible data export with permission-based access — export all data or filter by account, user profile, storage location, specific tote, or individual item
+* Unified Settings Page — manage tags, locations, and statuses in one place, along with account and profile configuration settings
+* AI - have gpt or claude or similar models auto-generate or recommend descriptions, estimated values, or any other assisted tasks
 
 ---
 
