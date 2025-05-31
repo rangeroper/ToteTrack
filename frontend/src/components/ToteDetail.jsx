@@ -58,6 +58,24 @@ export default function ToteDetail() {
 
     return (
         <div style={{ padding: "2rem", maxWidth: "800px", margin: "0 auto" }}>
+
+            
+            <button
+                onClick={() => navigate("/totes")}
+                style={{
+                    padding: "10px 16px",
+                    backgroundColor: "#007bff",
+                    color: "#fff",
+                    border: "none",
+                    borderRadius: 4,
+                    fontWeight: "bold",
+                    cursor: "pointer",
+                    marginBottom: "1.5rem",
+                }}
+            >
+            ← Back to All Totes
+            </button>
+
             {loading ? (
             <p>Loading...</p>
             ) : error ? (
@@ -67,7 +85,7 @@ export default function ToteDetail() {
             ) : (
             <>
                 <h2 style={{ marginBottom: "1rem", color: "#28a745" }}>
-                Tote Detail: {tote.barcode}
+                    Tote Detail: {tote.barcode}
                 </h2>
 
                 {tote.qr_image && (
@@ -201,6 +219,7 @@ export default function ToteDetail() {
                 </div>
             </>
             )}
+            
         </div>
     );
 
