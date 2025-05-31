@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import Modal from "./Modal";
 import TagsManager from "./TagsManager";
-// import other components like LocationsManager, StatusesManager, etc.
+import LocationsManager from "./LocationsManager";
+import StatusesManager from "./StatusesManager";
 
 export default function Settings({ onClose }) {
   const [activeSection, setActiveSection] = useState(null);
@@ -45,10 +46,10 @@ export default function Settings({ onClose }) {
     switch (activeSection) {
       case "tags":
         return <TagsManager onClose={() => setActiveSection(null)} />;
-      // case "locations":
-      //   return <LocationsManager onClose={() => setActiveSection(null)} />;
-      // case "statuses":
-      //   return <StatusesManager onClose={() => setActiveSection(null)} />;
+      case "locations":
+         return <LocationsManager onClose={() => setActiveSection(null)} />;
+       case "statuses":
+         return <StatusesManager onClose={() => setActiveSection(null)} />;
       // case "account":
       //   return <AccountSettings onClose={() => setActiveSection(null)} />;
       // case "notifications":

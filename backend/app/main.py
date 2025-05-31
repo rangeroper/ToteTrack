@@ -5,6 +5,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from starlette.status import HTTP_500_INTERNAL_SERVER_ERROR
 from app.routes.totes import router as totes_router
 from app.routes.tags import router as tags_router
+from app.routes.locations import router as locations_router    # <-- add this
+from app.routes.statuses import router as statuses_router      # <-- add this
 
 # Set up logging
 logging.basicConfig(
@@ -15,7 +17,7 @@ logger = logging.getLogger("inventory_api")
 
 app = FastAPI(
     title="Inventory API",
-    description="API for managing totes and tags",
+    description="API for managing totes, tags, locations, and statuses",
     version="1.0.0",
     docs_url="/docs",
     redoc_url="/redoc",
@@ -38,6 +40,8 @@ app.add_middleware(
 # Include routers with prefixes
 app.include_router(totes_router, prefix="/totes", tags=["Totes"])
 app.include_router(tags_router, prefix="/tags", tags=["Tags"])
+app.include_router(locations_router, prefix="/locations", tags=["Locations"])    # <-- add this
+app.include_router(statuses_router, prefix="/statuses", tags=["Statuses"])       # <-- add this
 
 @app.get("/", tags=["Root"])
 async def root():
