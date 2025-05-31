@@ -121,6 +121,9 @@ This will run the frontend on `http://localhost:3000`.
 * `POST /tags` - Create a tag
 * `DELETE /tags/{id}` - Delete a tag
 
+### Batch Routes
+* coming soon!
+
 ---
 
 ## 🗂 Folder Structure
@@ -136,9 +139,11 @@ inventory_management/
 
 ## ✅ Coming Soon
 
+* Bulk/batch actions
+* Manage Multiple Storage Locations
+* Manage Multiple Accounts/Profiles
 * User authentication
 * Role-based access
-* Bulk actions
 
 ---
 
