@@ -54,7 +54,7 @@ export default function FilterSortBar({ totes, onFilteredChange }) {
 
     if (selectedTags.length > 0) {
       filtered = filtered.filter((t) =>
-        t.tags?.some((tag) => selectedTags.includes(tag))
+        selectedTags.every((tag) => t.tags?.includes(tag))
       );
     }
 
