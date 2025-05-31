@@ -19,11 +19,13 @@ export default function FilterSortBar({ totes, onFilteredChange }) {
   // Derived filters for chip display
   const activeFilters = [
     selectedTag && { label: `Tag: ${selectedTag}`, key: "tag" },
-    weightThreshold &&
-      weightCondition !== "any" && {
-        label: `Weight: ${weightCondition} ${weightThreshold} lbs`,
-        key: "weight",
-      },
+    weightThreshold && {
+      label:
+        weightCondition === "any"
+          ? `Weight: ${weightThreshold} lbs`
+          : `Weight: ${weightCondition} ${weightThreshold} lbs`,
+      key: "weight",
+    },
     imageFilter === "none" && { label: "No Images", key: "image_none" },
     imageFilter === "min" &&
       minImages && { label: `Min Images: ${minImages}`, key: "image_min" },
@@ -49,13 +51,15 @@ export default function FilterSortBar({ totes, onFilteredChange }) {
       filtered = filtered.filter((t) => t.tags?.includes(selectedTag));
     }
 
-    if (weightThreshold && weightCondition !== "any") {
+    if (weightThreshold) {
       const threshold = parseFloat(weightThreshold);
       if (!isNaN(threshold)) {
         if (weightCondition === "over") {
           filtered = filtered.filter((t) => t.weight > threshold);
         } else if (weightCondition === "under") {
           filtered = filtered.filter((t) => t.weight < threshold);
+        } else if (weightCondition === "any") {
+          filtered = filtered.filter((t) => t.weight === threshold);
         }
       }
     }
@@ -144,7 +148,7 @@ export default function FilterSortBar({ totes, onFilteredChange }) {
       <div className="top-row">
         <input
           type="text"
-          className="filter-input search-input"
+          className="search-input"
           placeholder="Search barcode, description, weight, location, or tags..."
           value={filterText}
           onChange={(e) => setFilterText(e.target.value)}
