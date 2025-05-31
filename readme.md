@@ -45,7 +45,7 @@ pip install -r requirements.txt
 ### Start the server:
 
 ```bash
-uvicorn main:app --reload
+uvicorn app.main:app --reload
 ```
 
 By default, this runs at `http://127.0.0.1:8000`.

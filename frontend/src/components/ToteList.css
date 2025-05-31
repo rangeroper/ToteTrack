@@ -222,3 +222,21 @@
   }
 }
 
+.show-more-less-btn {
+  background: none;
+  border: none;
+  color: blue;
+  cursor: pointer;
+  padding-left: 0.3rem;
+  font-size: 0.9em;
+  text-decoration: underline;
+}
+
+th {
+  user-select: none;
+  white-space: nowrap;
+}
+
+th:hover {
+  text-decoration: underline;
+}

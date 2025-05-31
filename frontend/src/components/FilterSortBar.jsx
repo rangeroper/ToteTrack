@@ -127,18 +127,6 @@ export default function FilterSortBar({ totes, onFilteredChange }) {
                     value={filterText}
                     onChange={(e) => setFilterText(e.target.value)}
                 />
-                <select
-                    className="filter-select sort-select"
-                    value={sortValue}
-                    onChange={(e) => setSortValue(e.target.value)}
-                >
-                    <option value="">Sort by...</option>
-                    {sortOptions.map((opt) => (
-                    <option key={opt.value} value={opt.value}>
-                        {opt.label}
-                    </option>
-                    ))}
-                </select>
             </div>
 
             {/* Bottom Row: Filters */}

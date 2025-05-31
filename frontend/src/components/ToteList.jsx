@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom"; // updated here
+import { Link, useNavigate } from "react-router-dom";
 import FilterSortBar from "./FilterSortBar";
 import "../components/ToteList.css";
 
@@ -9,10 +9,12 @@ export default function ToteList() {
   const [error, setError] = useState(null);
   const [filteredTotes, setFilteredTotes] = useState([]);
   const [zoomedImage, setZoomedImage] = useState(null);
+  const [expandedDescriptions, setExpandedDescriptions] = useState({});
+
+  const [sortConfig, setSortConfig] = useState({ key: "barcode", direction: "asc" });
 
   const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
-
-  const navigate = useNavigate(); // added
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchTotes = async () => {
@@ -21,7 +23,7 @@ export default function ToteList() {
         if (!response.ok) throw new Error("Failed to fetch totes");
         const { totes: fetchedTotes } = await response.json();
         setTotes(fetchedTotes);
-        setFilteredTotes(fetchedTotes);
+        setFilteredTotes(sortTotes(fetchedTotes, sortConfig));
       } catch (err) {
         setError(err.message);
       } finally {
@@ -31,17 +33,61 @@ export default function ToteList() {
     fetchTotes();
   }, []);
 
+  const sortTotes = (totes, { key, direction }) => {
+    return [...totes].sort((a, b) => {
+      const aVal = a[key] ?? "";
+      const bVal = b[key] ?? "";
+      const aStr = typeof aVal === "string" ? aVal.toLowerCase() : aVal;
+      const bStr = typeof bVal === "string" ? bVal.toLowerCase() : bVal;
+
+      if (aStr < bStr) return direction === "asc" ? -1 : 1;
+      if (aStr > bStr) return direction === "asc" ? 1 : -1;
+      return 0;
+    });
+  };
+
+  const handleSort = (key) => {
+    let direction = "asc";
+    if (sortConfig.key === key && sortConfig.direction === "asc") {
+      direction = "desc";
+    }
+    const newSortConfig = { key, direction };
+    setSortConfig(newSortConfig);
+    setFilteredTotes(sortTotes(filteredTotes, newSortConfig));
+  };
+
+  const sortableColumns = {
+    barcode: "Barcode",
+    location: "Location",
+    weight: "Weight",
+    tags: "Tags",
+  };
+
+  const renderSortIcon = (key) => {
+    if (sortConfig.key !== key) return null;
+    return sortConfig.direction === "asc" ? "▲" : "▼";
+  };
+
   const handleDelete = async (idToDelete, e) => {
-    e.stopPropagation(); // prevent triggering row click
+    e.stopPropagation();
     if (!window.confirm(`Delete tote with ID ${idToDelete}?`)) return;
     try {
       const res = await fetch(`${API_BASE_URL}/totes/${idToDelete}`, { method: "DELETE" });
       if (!res.ok) throw new Error("Failed to delete tote");
-      setTotes((prev) => prev.filter((t) => t.id !== idToDelete));
-      setFilteredTotes((prev) => prev.filter((t) => t.id !== idToDelete));
+      const updatedTotes = totes.filter((t) => t.id !== idToDelete);
+      setTotes(updatedTotes);
+      setFilteredTotes(sortTotes(updatedTotes, sortConfig));
     } catch (err) {
       alert("Error deleting tote: " + err.message);
     }
+  };
+
+  const toggleDescription = (id, e) => {
+    e.stopPropagation();
+    setExpandedDescriptions((prev) => ({
+      ...prev,
+      [id]: !prev[id],
+    }));
   };
 
   if (loading) return <p>Loading totes...</p>;
@@ -50,25 +96,34 @@ export default function ToteList() {
   return (
     <div className="tote-list-container">
       <div className="tote-list-header">
-        <FilterSortBar totes={totes} onFilteredChange={setFilteredTotes} />
+        <FilterSortBar totes={totes} onFilteredChange={(newFiltered) => {
+          setFilteredTotes(sortTotes(newFiltered, sortConfig));
+        }} />
       </div>
 
       <table className="tote-table" aria-label="Tote List Table">
         <thead>
           <tr>
             {[
-              "Barcode",
-              "Description",
-              "Status",
-              "Location",
-              "Weight",
-              "Tags",
-              "Images",
-              "QR Code",
-              "Actions",
-            ].map((header) => (
-              <th key={header} scope="col">
-                {header}
+              "barcode",
+              "description",
+              "status",
+              "location",
+              "weight",
+              "tags",
+              "images",
+              "qr",
+              "actions"
+            ].map((key) => (
+              <th
+                key={key}
+                scope="col"
+                onClick={() => sortableColumns[key] && handleSort(key)}
+                style={{ cursor: sortableColumns[key] ? "pointer" : "default" }}
+              >
+                {sortableColumns[key] || key.charAt(0).toUpperCase() + key.slice(1)}
+                {" "}
+                {renderSortIcon(key)}
               </th>
             ))}
           </tr>
@@ -85,59 +140,75 @@ export default function ToteList() {
               <tr
                 key={tote.id}
                 tabIndex={0}
-                onClick={() => navigate(`/totes/${tote.id}`)} // row click
-                style={{ cursor: 'pointer' }}
+                onClick={() => navigate(`/totes/${tote.id}`)}
+                style={{ cursor: "pointer" }}
               >
-                <td data-label="Barcode">{tote.barcode}</td>
-                <td data-label="Description">{tote.description}</td>
-                <td data-label="Status">{tote.status}</td>
-                <td data-label="Location">{tote.location}</td>
-                <td data-label="Weight">{tote.weight}</td>
-                <td data-label="Tags" className="tote-tags">
-                  {tote.tags?.length > 0 ? tote.tags.join(", ") : <em>None</em>}
+                <td>{tote.barcode}</td>
+                <td>
+                  {tote.description.length <= 60 || expandedDescriptions[tote.id] ? (
+                    <>
+                      {tote.description}
+                      {tote.description.length > 60 && (
+                        <button className="show-more-less-btn" onClick={(e) => toggleDescription(tote.id, e)}>
+                          Show Less
+                        </button>
+                      )}
+                    </>
+                  ) : (
+                    <>
+                      {tote.description.slice(0, 60)}...
+                      <button className="show-more-less-btn" onClick={(e) => toggleDescription(tote.id, e)}>
+                        Show More
+                      </button>
+                    </>
+                  )}
                 </td>
-                <td data-label="Images">
+                <td>{tote.status}</td>
+                <td>{tote.location}</td>
+                <td>{tote.weight}</td>
+                <td className="tote-tags">{tote.tags?.length > 0 ? tote.tags.join(", ") : <em>None</em>}</td>
+                <td>
                   {tote.images?.length > 0 ? (
                     <div className="image-gallery">
-                      {tote.images.map((img, i) => {
+                      {(() => {
+                        const img = tote.images[0];
                         const src = img.startsWith("data:") ? img : `data:image/png;base64,${img}`;
                         return (
                           <img
-                            key={i}
                             src={src}
-                            alt={`Tote ${tote.barcode} image ${i + 1}`}
+                            alt={`Tote ${tote.barcode} image 1`}
                             tabIndex={0}
                             onClick={(e) => {
-                              e.stopPropagation(); // stop row click
+                              e.stopPropagation();
                               setZoomedImage(src);
                             }}
                             onKeyDown={(e) => {
                               if (e.key === "Enter" || e.key === " ") {
-                                e.stopPropagation(); // stop row click
+                                e.stopPropagation();
                                 setZoomedImage(src);
                               }
                             }}
                           />
                         );
-                      })}
+                      })()}
                     </div>
                   ) : (
                     <em className="tote-no-images">No images</em>
                   )}
                 </td>
-                <td data-label="QR Code">
+                <td>
                   {tote.qr_image ? (
                     <img
                       src={`data:image/png;base64,${tote.qr_image}`}
                       alt={`QR code for ${tote.barcode}`}
                       className="qr-image"
                       onClick={(e) => {
-                        e.stopPropagation(); // avoid row click
+                        e.stopPropagation();
                         setZoomedImage(`data:image/png;base64,${tote.qr_image}`);
                       }}
                       onKeyDown={(e) => {
                         if (e.key === "Enter" || e.key === " ") {
-                          e.stopPropagation(); // avoid row click
+                          e.stopPropagation();
                           setZoomedImage(`data:image/png;base64,${tote.qr_image}`);
                         }
                       }}
@@ -146,12 +217,8 @@ export default function ToteList() {
                     <em className="tote-no-qr">No QR</em>
                   )}
                 </td>
-                <td data-label="Actions" className="action-buttons">
-                  <button
-                    className="delete-btn"
-                    onClick={(e) => handleDelete(tote.id, e)}
-                    aria-label={`Delete tote ${tote.barcode}`}
-                  >
+                <td className="action-buttons">
+                  <button className="delete-btn" onClick={(e) => handleDelete(tote.id, e)} aria-label={`Delete tote ${tote.barcode}`}>
                     Delete
                   </button>
                 </td>
