@@ -96,9 +96,11 @@ export default function ToteList() {
   return (
     <div className="tote-list-container">
       <div className="tote-list-header">
-        <FilterSortBar totes={totes} onFilteredChange={(newFiltered) => {
+        <FilterSortBar totes={totes} onFilteredChange={setFilteredTotes} />
+
+        {/* <FilterSortBar totes={totes} onFilteredChange={(newFiltered) => {
           setFilteredTotes(sortTotes(newFiltered, sortConfig));
-        }} />
+        }} /> */}
 
         <div className="mobile-sort">
           <label htmlFor="mobile-sort-select" className="mobile-sort-label">Sort by:</label>
