@@ -78,7 +78,11 @@ This will run the frontend on `http://localhost:3000`.
 
 ## ✨ Features
 
-📦 Create, edit, and delete inventory totes
+📦 Create, edit, and delete inventory totes  
+<p float="left">
+  <img src="./frontend/public/project/images/create_tote.png" width="45%" alt="Create Tote Feature" />
+  <img src="./frontend/public/project/images/edit_tote.png" width="45%" alt="Edit Tote Feature" />
+</p>
 
 🏷️ Assign and manage tags for easier classification 
 
