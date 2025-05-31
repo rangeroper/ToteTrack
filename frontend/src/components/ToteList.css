@@ -169,6 +169,30 @@
   box-shadow: 0 0 20px rgba(255,255,255,0.3);
 }
 
+.show-more-less-btn {
+  background: none;
+  border: none;
+  color: blue;
+  cursor: pointer;
+  padding-left: 0.3rem;
+  font-size: 0.9em;
+  text-decoration: underline;
+}
+
+th {
+  user-select: none;
+  white-space: nowrap;
+}
+
+th:hover {
+  text-decoration: underline;
+}
+
+.mobile-sort {
+  display: none;
+  margin: 1rem 0;
+}
+
 /* Responsive: Mobile Tables */
 /* On small screens, convert the table to block cards */
 @media (max-width: 900px) {
@@ -220,23 +244,15 @@
   .image-gallery {
     justify-content: flex-start;
   }
-}
 
-.show-more-less-btn {
-  background: none;
-  border: none;
-  color: blue;
-  cursor: pointer;
-  padding-left: 0.3rem;
-  font-size: 0.9em;
-  text-decoration: underline;
-}
+   .mobile-sort {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
 
-th {
-  user-select: none;
-  white-space: nowrap;
-}
-
-th:hover {
-  text-decoration: underline;
+  .mobile-sort-select {
+    padding: 0.5rem;
+    font-size: 1rem;
+  }
 }

@@ -46,9 +46,9 @@ export default function ToteList() {
     });
   };
 
-  const handleSort = (key) => {
-    let direction = "asc";
-    if (sortConfig.key === key && sortConfig.direction === "asc") {
+  const handleSort = (key, directionOverride) => {
+    let direction = directionOverride || "asc";
+    if (!directionOverride && sortConfig.key === key && sortConfig.direction === "asc") {
       direction = "desc";
     }
     const newSortConfig = { key, direction };
@@ -99,6 +99,31 @@ export default function ToteList() {
         <FilterSortBar totes={totes} onFilteredChange={(newFiltered) => {
           setFilteredTotes(sortTotes(newFiltered, sortConfig));
         }} />
+
+        <div className="mobile-sort">
+          <label htmlFor="mobile-sort-select" className="mobile-sort-label">Sort by:</label>
+          <select
+            id="mobile-sort-select"
+            className="mobile-sort-select"
+            value={`${sortConfig.key}-${sortConfig.direction}`}
+            onChange={(e) => {
+              const [key, direction] = e.target.value.split("-");
+              handleSort(key, direction);
+            }}
+          >
+            {Object.entries(sortableColumns).map(([key, label]) => (
+              <>
+                <option key={`${key}-asc`} value={`${key}-asc`}>
+                  {label} (A-Z)
+                </option>
+                <option key={`${key}-desc`} value={`${key}-desc`}>
+                  {label} (Z-A)
+                </option>
+              </>
+            ))}
+          </select>
+        </div>
+
       </div>
 
       <table className="tote-table" aria-label="Tote List Table">
