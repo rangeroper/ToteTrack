@@ -86,17 +86,18 @@ This will run the frontend on `http://localhost:3000`.
 
 ![Tag Management Feature](./frontend/public/project/images/tag_management.png)
 
-📍 Assign and manage locations for precise tracking (coming soon - free text for now)
+📍 Assign and manage multiple storage locations for precise tracking (coming soon)
 
-🔖 Assign and manage statuses to track progress or condition (coming soon - free text for now)
+🔖 Assign and manage statuses to track progress, status, or condition (coming soon - free text for now)
 
 🔍  Powerful search and filter: Quickly find totes by searching barcode, description, weight, location, or tags. Refine results by selecting specific tags, filtering by weight (exact, above, or below a threshold), or filtering by image availability (no images or minimum number of images).
 
 ![Filtering Feature](./frontend/public/project/images/filtering.png)
 
 🧾 View contents of individual totes
+![Tote Detail Page](./frontend/public/project/images/tote_detail.png)
 
-📍 Track tote location (aisle, row, shelf, etc.)
+📍 Track tote location (storage location, aisle, row, shelf, etc.)
 
 ⚡ Generate and scan QR codes for each tote to instantly locate and identify them
 
