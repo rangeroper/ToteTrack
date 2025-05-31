@@ -78,31 +78,62 @@ This will run the frontend on `http://localhost:3000`.
 
 ## ✨ Features
 
-📦 Create, edit, and delete inventory totes
-![Create Tote Feature](./frontend/public/project/images/create_tote.png)
+## ✨ Features
+
+📦 **Create, edit, and delete inventory totes**  
+Easily manage your storage units with intuitive controls.
+
+![Create Tote Feature](./frontend/public/project/images/create_tote.png)  
 ![Edit Tote Feature](./frontend/public/project/images/edit_tote.png)
 
-🏷️ Assign and manage tags for easier classification 
+---
 
-![Tag Management Feature](./frontend/public/project/images/tag_management.png)
+🏷️ **Assign and manage tags for easier classification**  
+Organize your totes with custom tags to simplify sorting and searching.
 
-📍 Assign and manage multiple storage locations for precise tracking (coming soon)
+---
 
-🔖 Assign and manage statuses to track progress, status, or condition (coming soon - free text for now)
+📍 **Assign and manage multiple storage locations** *(coming soon)*  
+Track items across different warehouses, units, or facilities.
 
-🔍  Powerful search and filter: Quickly find totes by searching barcode, description, weight, location, or tags. Refine results by selecting specific tags, filtering by weight (exact, above, or below a threshold), or filtering by image availability (no images or minimum number of images).
+---
+
+🔖 **Assign and manage statuses** *(coming soon – free text for now)*  
+Use status labels to identify item condition, progress, or availability.
+
+---
+
+🔍 **Powerful search and filter tools**  
+Search across barcode, description, weight, location, or tags.  
+Filter by:
+- Tag type
+- Weight (exact, over, under)
+- Image presence (no images, minimum number of images)
 
 ![Filtering Feature](./frontend/public/project/images/filtering.png)
 
-🧾 View contents of individual totes
+---
+
+🧾 **View contents of individual totes**  
+See everything stored inside a tote — including quantity, images, and notes.
+
 ![Tote Detail Page](./frontend/public/project/images/tote_detail.png)
 
-📍 Track tote location (storage location, aisle, row, shelf, etc.)
+---
 
-⚡ Generate and scan QR codes for each tote to instantly locate and identify them
+📍 **Track tote location details**  
+Store and view tote position by aisle, row, and shelf.
 
-💻 Responsive, modern UI built with React
-![Mobile View](./frontend/public/project/images/mobile_view.png)
+---
+
+⚡ **Scan or generate QR codes for each tote**  
+Each tote gets a scannable QR code for fast access and updates.
+
+---
+
+💻 **Modern, responsive UI built with React**  
+Works beautifully on both desktop and mobile devices.
+
 
 ---
 
