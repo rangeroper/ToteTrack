@@ -84,6 +84,8 @@ This will run the frontend on `http://localhost:3000`.
 
 🔍 Sort and filter totes by name, tags, and last updated
 
+![Filtering Feature](./frontend/public/project/images/filtering.png)
+
 🧾 View contents of individual totes
 
 📍 Track tote location (aisle, row, shelf, etc.)
