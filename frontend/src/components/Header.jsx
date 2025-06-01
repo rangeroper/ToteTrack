@@ -78,7 +78,7 @@ export default function Header() {
       <header className="header-container">
         <Link to="/" className="header-link">
           <Package className="header-icon" size={28} strokeWidth={2.2} />
-          <h1 className="header-title">Inventory Management Suite</h1>
+          <h1 className="header-title">ToteTrack</h1>
         </Link>
 
         <nav className="header-nav">

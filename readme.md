@@ -1,4 +1,4 @@
-# Inventory Management Suite <img src="https://raw.githubusercontent.com/rangeroper/inventory_management_suite/main/frontend/public/project/images/box.svg" width="36" height="36" alt="box icon" />
+# ToteTrack <img src="https://raw.githubusercontent.com/rangeroper/inventory_management_suite/main/frontend/public/project/images/box.svg" width="36" height="36" alt="box icon" />
 
 <div align="center">
   <a href="https://qr-storage.onrender.com/" target="_blank" style="text-decoration:none;">
