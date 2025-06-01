@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { X, PlusCircle, Trash2, ArrowLeft } from "lucide-react";
 
 export default function ToteFormSkeleton({
   barcode,
@@ -26,6 +27,19 @@ export default function ToteFormSkeleton({
   onImageRemove,
 }) {
   const [zoomedImg, setZoomedImg] = useState(null);
+  const [descriptionInvalid, setDescriptionInvalid] = useState(false);
+
+  // Called on blur to check if description is empty
+  function handleDescriptionBlur(e) {
+    setDescriptionInvalid(!e.target.value.trim());
+  }
+
+  // Clear description field & mark invalid
+  function clearDescription() {
+    onChange({ target: { name: "description", value: "" } });
+    setDescriptionInvalid(true);
+  }
+
   return (
     <form onSubmit={onSubmit} style={formWrapper}>
       <input
@@ -36,13 +50,69 @@ export default function ToteFormSkeleton({
         style={inputStyle}
       />
 
-      <input
-        name="description"
-        value={description ?? ""}
-        onChange={onChange}
-        placeholder="Description"
-        style={inputStyle}
-      />
+      {/* Description input wrapper to position icon */}
+      <div style={{ position: "relative", width: "95%", marginBottom: "0.25rem" }}>
+        <input
+          name="description"
+          value={description ?? ""}
+          onChange={(e) => {
+            onChange(e);
+            if (e.target.value.trim()) setDescriptionInvalid(false);
+          }}
+          onBlur={handleDescriptionBlur}
+          placeholder="Description"
+          required
+          style={{
+            ...inputStyle,
+            paddingRight: "2.5rem", // space for icon
+            borderColor: descriptionInvalid ? "#dc2626" : inputStyle.borderColor,
+          }}
+          // Disable native validation tooltip, let custom handle it
+          onInvalid={(e) => e.preventDefault()}
+        />
+
+        {/* Show Lucide X icon if invalid */}
+        {descriptionInvalid && (
+          <button
+            type="button"
+            onClick={clearDescription}
+            aria-label="Clear description"
+            style={{
+              position: "absolute",
+              right: 10,
+              top: "50%",
+              transform: "translateY(-50%)",
+              border: "none",
+              background: "transparent",
+              padding: 0,
+              cursor: "pointer",
+              color: "#dc2626", // red color
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              height: 24,       // added height to help vertical center
+              width: 24,
+            }}
+          >
+            <X size={20} />
+          </button>
+        )}
+      </div>
+
+      {/* Error message below input */}
+      {descriptionInvalid && (
+        <div
+          style={{
+            color: "#dc2626",
+            fontSize: "0.875rem",
+            marginBottom: "1rem",
+            width: "95%",
+          }}
+          role="alert"
+        >
+          Description is required.
+        </div>
+      )}
     
       {/* Status select */}
       <label style={labelStyle}>Status</label>
@@ -201,7 +271,7 @@ export default function ToteFormSkeleton({
 
           {/* Image Picker Tile */}
           <label style={plusIconStyle}>
-            +
+            <PlusCircle size={40} strokeWidth={1.5} color="#999" />
             <input
               type="file"
               accept="image/*"

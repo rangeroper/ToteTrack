@@ -1,4 +1,4 @@
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, validator
 from typing import Optional, List
 from datetime import datetime
 
@@ -26,6 +26,12 @@ class ToteCreate(BaseModel):
     tags: Optional[List[str]] = []
     weight: Optional[float] = None
     images: Optional[List[str]] = []
+
+    @validator('weight', pre=True)
+    def empty_string_to_none(cls, v):
+        if v == "":
+            return None
+        return v
 
 class ToteUpdate(BaseModel):
     barcode: Optional[str] = None

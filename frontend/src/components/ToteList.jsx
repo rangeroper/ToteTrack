@@ -62,6 +62,7 @@ export default function ToteList() {
     location: "Location",
     weight: "Weight",
     tags: "Tags",
+    status: "Status",
   };
 
   const renderSortIcon = (key) => {
@@ -216,9 +217,9 @@ export default function ToteList() {
                     </>
                   )}
                 </td>
-                <td>{tote.status}</td>
-                <td>{tote.location}</td>
-                <td>{tote.weight}</td>
+                <td>{tote.status || <em>None</em>}</td>
+                <td>{tote.location || <em>None</em>}</td>
+                <td>{tote.weight != null ? tote.weight : <em>None</em>}</td>
                 <td className="tote-tags">{tote.tags?.length > 0 ? tote.tags.join(", ") : <em>None</em>}</td>
                 <td>
                   {tote.images?.length > 0 ? (
