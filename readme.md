@@ -1,4 +1,4 @@
-# Inventory Management Suite
+# Inventory Management Suite <img src="https://raw.githubusercontent.com/rangeroper/inventory_management_suite/main/frontend/public/project/images/box.svg" width="24" height="24" alt="box icon" />
 
 A full-stack inventory management application built with FastAPI (backend) and React (frontend). It offers efficient storage control with powerful tagging, filtering, and fast item manipulation. Each tote is assigned a unique QR code for instant tracking (point your camera at the QR code and be redirected to the totes page), content visibility, and precise location identification at a glance.
 
