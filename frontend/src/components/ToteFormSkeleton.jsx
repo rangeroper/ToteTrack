@@ -6,6 +6,14 @@ export default function ToteFormSkeleton({
   status,
   location,
   weight,
+  selectedLocations,
+  availableLocations,
+  onLocationAdd,
+  onLocationRemove,
+  selectedStatus,
+  availableStatus,
+  onStatusAdd,
+  onStatusRemove,
   selectedTags,
   availableTags,
   onTagAdd,
@@ -35,22 +43,81 @@ export default function ToteFormSkeleton({
         placeholder="Description"
         style={inputStyle}
       />
+    
+      {/* Status select */}
+      <label style={labelStyle}>Status</label>
+      <div style={tagWrapperStyle}>
+        {selectedStatus.map((s) => (
+          <span key={s} style={tagStyle}>
+            {s}
+            <button
+              type="button"
+              onClick={() => onStatusRemove(s)}
+              style={removeButtonStyle}
+              aria-label={`Remove status ${s}`}
+            >
+              ×
+            </button>
+          </span>
+        ))}
 
-      <input
-        name="status"
-        value={status ?? ""}
-        onChange={onChange}
-        placeholder="Status"
-        style={inputStyle}
-      />
+        <select
+          onChange={(e) => {
+            const value = e.target.value;
+            if (value) {
+              onStatusAdd(value);
+            }
+            e.target.value = "";
+          }}
+          style={selectStyle}
+          aria-label="Add status"
+        >
+          <option value="">Add status...</option>
+          {availableStatus
+            .filter((status) => !selectedStatus.includes(status))
+            .map((status) => (
+              <option key={status} value={status}>
+                {status}
+              </option>
+            ))}
+        </select>
+      </div>
 
-      <input
-        name="location"
-        value={location ?? ""}
-        onChange={onChange}
-        placeholder="Location"
-        style={inputStyle}
-      />
+      {/* Location select */}
+      <label style={labelStyle}>Locations</label>
+      <div style={tagWrapperStyle}>
+        {selectedLocations.map((loc) => (
+          <span key={loc} style={tagStyle}>
+            {loc}
+            <button
+              type="button"
+              onClick={() => onLocationRemove(loc)}
+              style={removeButtonStyle}
+              aria-label={`Remove location ${loc}`}
+            >
+              ×
+            </button>
+          </span>
+        ))}
+        <select
+          onChange={(e) => {
+            const value = e.target.value;
+            if (value) onLocationAdd(value);
+            e.target.value = "";
+          }}
+          style={selectStyle}
+          aria-label="Add location"
+        >
+          <option value="">Add location...</option>
+          {availableLocations
+            .filter((loc) => !selectedLocations.includes(loc))
+            .map((loc) => (
+              <option key={loc} value={loc}>
+                {loc}
+              </option>
+            ))}
+        </select>
+      </div>
 
       <input
         name="weight"
@@ -185,7 +252,7 @@ const formWrapper = {
 };
 
 const inputStyle = {
-  width: "100%",
+  width: "95%",
   padding: "0.75rem 1rem",
   marginBottom: "1rem",
   border: "1px solid #ccc",
@@ -200,6 +267,7 @@ const selectStyle = {
   borderRadius: "8px",
   border: "1px solid #ccc",
   backgroundColor: "#fff",
+  width: "33.33%",
 };
 
 const fileInputStyle = {
@@ -218,7 +286,9 @@ const tagWrapperStyle = {
   display: "flex",
   flexWrap: "wrap",
   gap: "0.5rem",
-  marginBottom: "1.5rem",
+  marginBottom: "0.5rem",
+  // ensure it stretches full width
+  width: "100%",
 };
 
 const tagStyle = {

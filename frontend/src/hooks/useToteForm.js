@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import useToteTags from "./useToteTags";
 import useToteImages from "./useToteImages";
+import useToteLocations from "./useToteLocations";
+import useToteStatuses from "./useToteStatuses";
 import { useNavigate, useParams, useLocation } from "react-router-dom";
 
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
@@ -16,8 +18,6 @@ export default function useToteForm() {
   const [formData, setFormData] = useState({
     barcode: "",
     description: "",
-    status: "",
-    location: "",
     weight: "",
   });
 
@@ -35,6 +35,22 @@ export default function useToteForm() {
     handleImageAdd,
     handleImageRemove,
   } = useToteImages();
+
+  const {
+    selectedLocations,
+    availableLocations,
+    setSelectedLocations,
+    handleLocationAdd,
+    handleLocationRemove,
+  } = useToteLocations();
+
+  const {
+    selectedStatus,
+    availableStatuses,
+    setSelectedStatus,
+    handleStatusAdd,
+    handleStatusRemove
+  } = useToteStatuses();
 
   const [isLoading, setIsLoading] = useState(isEdit); // start loading if editing
   const [submitError, setSubmitError] = useState(null);
@@ -54,24 +70,22 @@ export default function useToteForm() {
         setFormData({
           barcode: tote.barcode || "",
           description: tote.description || "",
-          status: tote.status || "",
-          location: tote.location || "",
           weight: tote.weight || "",
         });
 
+        // Set status and locations into their respective states/hooks
+        setSelectedStatus(Array.isArray(tote.status) ? tote.status : []);
+        setSelectedLocations(Array.isArray(tote.location) ? tote.location : []);
         setSelectedTags(Array.isArray(tote.tags) ? tote.tags : []);
 
-        // Pass initial images as strings to the image hook
         setImages(
           Array.isArray(tote.images)
-            ? tote.images.map((base64Str) => {
-                return {
-                  file: null,
-                  preview: base64Str.startsWith("data:")
-                    ? base64Str
-                    : `data:image/jpeg;base64,${base64Str}`,
-                };
-              })
+            ? tote.images.map((base64Str) => ({
+                file: null,
+                preview: base64Str.startsWith("data:")
+                  ? base64Str
+                  : `data:image/jpeg;base64,${base64Str}`,
+              }))
             : []
         );
       } catch (error) {
@@ -83,7 +97,7 @@ export default function useToteForm() {
     };
 
     fetchData();
-  }, [toteId, isEdit, setSelectedTags, setImages, location.pathname]);
+  }, [toteId, isEdit, setSelectedTags, setImages, setSelectedLocations, setSelectedStatus, location.pathname]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -101,10 +115,16 @@ export default function useToteForm() {
 
     const data = new FormData();
 
-    // Append all form data fields
+    // Append basic form data fields
     Object.entries(formData).forEach(([key, value]) => {
       data.append(key, value);
     });
+
+    // Append selected statuses
+    selectedStatus.forEach((status) => data.append("status[]", status));
+
+    // Append selected locations
+    selectedLocations.forEach((loc) => data.append("location[]", loc));
 
     // Append tags
     selectedTags.forEach((tag) => data.append("tags[]", tag));
@@ -152,6 +172,16 @@ export default function useToteForm() {
     handleTagRemove,
     handleImageAdd,
     handleImageRemove,
+    selectedLocations,
+    availableLocations,
+    setSelectedLocations,
+    handleLocationAdd,
+    handleLocationRemove,
+    handleStatusRemove,
+    selectedStatus,
+    availableStatuses,
+    setSelectedStatus,
+    handleStatusAdd,
     handleSubmit,
     isEdit,
     isLoading,
