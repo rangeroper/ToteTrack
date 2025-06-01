@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 
-export default function Modal({ children, onClose, showBackButton = false, onBack, modalStyle = {}, modalClass = "" }) {
+export default function Modal({ children, onClose, showBackButton = false, onBack, modalStyle = {} }) {
   useEffect(() => {
     document.body.style.overflow = "hidden"; // Lock scroll
 
@@ -8,7 +8,7 @@ export default function Modal({ children, onClose, showBackButton = false, onBac
       document.body.style.overflow = ""; // Unlock on modal close/unmount
     };
   }, []);
-  
+
   const dynamicModalStyle = {
     ...modalStyles.modal,
     ...modalStyle,
