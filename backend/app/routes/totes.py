@@ -29,21 +29,21 @@ async def create_tote(
     request: Request,
     barcode: str = Form(...),
     description: Optional[str] = Form(None),
-    status: Optional[str] = Form(None),
-    location: Optional[str] = Form(None),
     weight: Optional[float] = Form(None),
     images: List[UploadFile] = File([]),
 ):
     form = await request.form()
-    tags = form.getlist("tags") or form.getlist("tags[]") or []
+    tags_list = form.getlist("tags") or form.getlist("tags[]") or []
+    status_list = form.getlist("status") or form.getlist("status[]") or []
+    location_list = form.getlist("location") or form.getlist("location[]") or []
 
     tote_data = {
         "barcode": barcode,
         "description": description,
-        "status": status,
-        "location": location,
+        "status": status_list,
+        "location": location_list,
         "weight": weight,
-        "tags": tags,
+        "tags": tags_list,
         "images": [],
         "created_at": datetime.utcnow(),
         "updated_at": datetime.utcnow(),
@@ -105,8 +105,6 @@ async def update_tote(
     request: Request,
     id: str,
     description: Optional[str] = Form(None),
-    status: Optional[str] = Form(None),
-    location: Optional[str] = Form(None),
     weight: Optional[float] = Form(None),
     existingImages: List[str] = Form([]),  # snake_case naming consistent
     images: List[UploadFile] = File([]),
@@ -118,15 +116,17 @@ async def update_tote(
 
     form = await request.form()
     tags = form.getlist("tags") or form.getlist("tags[]") or []
+    status_list = form.getlist("status") or form.getlist("status[]") or []
+    location_list = form.getlist("location") or form.getlist("location[]") or []
 
     update_data = {}
 
     if description is not None:
         update_data["description"] = description
-    if status is not None:
-        update_data["status"] = status
-    if location is not None:
-        update_data["location"] = location
+    if status_list:
+        update_data["status"] = status_list
+    if location_list:
+        update_data["location"] = location_list
     if weight is not None:
         update_data["weight"] = weight
     if tags:
