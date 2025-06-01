@@ -51,8 +51,8 @@ export default function ToteFormSkeleton({
       />
 
       {/* Description input wrapper to position icon */}
-      <div style={{ position: "relative", width: "95%", marginBottom: "0.25rem" }}>
-        <input
+      <div style={{ position: "relative", width: "100%", marginBottom: "0.25rem" }}>
+        <textarea
           name="description"
           value={description ?? ""}
           onChange={(e) => {
@@ -62,41 +62,47 @@ export default function ToteFormSkeleton({
           onBlur={handleDescriptionBlur}
           placeholder="Description"
           required
+          rows={4}
           style={{
             ...inputStyle,
             paddingRight: "2.5rem", // space for icon
             borderColor: descriptionInvalid ? "#dc2626" : inputStyle.borderColor,
+            resize: "vertical",
+            height: "auto", 
+            lineHeight: "1.5",
+            minHeight: "100px",
           }}
+          
           // Disable native validation tooltip, let custom handle it
           onInvalid={(e) => e.preventDefault()}
         />
 
         {/* Show Lucide X icon if invalid */}
         {descriptionInvalid && (
-          <button
-            type="button"
-            onClick={clearDescription}
-            aria-label="Clear description"
-            style={{
-              position: "absolute",
-              right: 10,
-              top: "50%",
-              transform: "translateY(-50%)",
-              border: "none",
-              background: "transparent",
-              padding: 0,
-              cursor: "pointer",
-              color: "#dc2626", // red color
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              height: 24,       // added height to help vertical center
-              width: 24,
-            }}
-          >
-            <X size={20} />
-          </button>
-        )}
+        <button
+          type="button"
+          onClick={clearDescription}
+          aria-label="Clear description"
+          style={{
+            position: "absolute",
+            right: 10,
+            top: "50%",
+            transform: "translateY(-60%)",
+            border: "none",
+            background: "transparent",
+            padding: 0,
+            cursor: "pointer",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            lineHeight: 0, // Remove vertical offset
+            height: "100%",
+            width: 24,
+          }}
+        >
+          <X size={20} strokeWidth={4} color="#dc2626" />
+        </button>
+      )}
       </div>
 
       {/* Error message below input */}
@@ -195,7 +201,10 @@ export default function ToteFormSkeleton({
         value={weight ?? ""}
         onChange={onChange}
         placeholder="Weight (lbs)"
-        style={inputStyle}
+        style={{
+          ...inputStyle,
+          width: "33.33%",
+        }}
       />
 
       <label style={labelStyle}>Tags</label>
@@ -322,7 +331,9 @@ const formWrapper = {
 };
 
 const inputStyle = {
-  width: "95%",
+  width: '100%',
+  maxWidth: '100%',
+  boxSizing: 'border-box',
   padding: "0.75rem 1rem",
   marginBottom: "1rem",
   border: "1px solid #ccc",
