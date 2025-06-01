@@ -3,8 +3,11 @@ import axios from "axios";
 
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
-export default function useToteStatus(initialStatus = "") {
-  const [selectedStatus, setSelectedStatus] = useState(initialStatus);
+export default function useToteStatus(initialStatus = []) {
+  // Always initialize as an array
+  const [selectedStatus, setSelectedStatus] = useState(
+    Array.isArray(initialStatus) ? initialStatus : []
+  );
   const [availableStatuses, setAvailableStatuses] = useState([]);
 
   useEffect(() => {
