@@ -1,10 +1,10 @@
 # Inventory Management Suite <img src="https://github.com/rangeroper/inventory_management_suite/blob/main/frontend/public/project/images/box.svg" width="36" height="36" alt="box icon" />
 
 <div align="center">
-  <a href="https://your-demo-url.com" target="_blank" style="text-decoration:none; margin-right: 40px;">
+  <a href="https://qr-storage.onrender.com/" target="_blank" style="text-decoration:none; margin-right: 40px;">
     🚀 Demo
   </a>
-  •
+  <span style="margin: 0 10px;">•</span>
   <a href="https://github.com/rangeroper/inventory_management_suite/issues/new" target="_blank" style="text-decoration:none;">
     🛠️ Contribute
   </a>
@@ -17,8 +17,6 @@ A full-stack inventory management application built with FastAPI (backend) and R
 Add photos of your tote contents to never forget what you’ve stored inside. Say goodbye to guessing where your totes are, what’s inside them, or worrying about perishables and electronics being misplaced or forgotten.
 
 ---
-
-**Demo:** [https://qr-storage.onrender.com/](https://qr-storage.onrender.com/)
 
 ## 🚀 Getting Started
 
