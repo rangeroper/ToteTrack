@@ -142,71 +142,71 @@ Centralized management for profiles, accounts, tags, locations, statuses, and pe
 
 ### Tote Routes
 
-* `GET /totes` - Get all totes
-Returns a JSON object with all totes.
+* `GET /totes` - Get all totes <br>
+* Returns a JSON object with all totes. *
 
-* `GET /totes/{id}` - Get a tote by ID
-Returns the tote matching the MongoDB ObjectId.
+* `GET /totes/{id}` - Get a tote by ID <br>
+* Returns the tote matching the MongoDB ObjectId. *
 
-* `POST /totes` - Create a new tote
-Accepts form data (barcode required, optional description, weight, tags, status, location, images).  Generates a QR code for the new tote.
+* `POST /totes` - Create a new tote <br>
+* Accepts form data (barcode required, optional description, weight, tags, status, location, images).  Generates a QR code for the new tote. *
 
-* `PATCH /totes/{id}` - Edit tote (partial)
-Accepts form data for description, weight, tags, status, location, existingImages (base64), and new image uploads.  Merges new images with existing ones and updates the tote.
+* `PATCH /totes/{id}` - Edit tote (partial) <br>
+* Accepts form data for description, weight, tags, status, location, existingImages (base64), and new image uploads.  Merges new images with existing ones and updates the tote. *
 
-* `DELETE /totes/{id}` - Delete tote
-Deletes the tote matching the MongoDB ObjectId.
+* `DELETE /totes/{id}` - Delete tote <br>
+* Deletes the tote matching the MongoDB ObjectId. *
 
 ### Tag Routes
 
-* `GET /tags` — List all tags
-Returns a JSON object with all tags.
+* `GET /tags` — List all tags <br>
+* Returns a JSON object with all tags. *
 
-* `POST /tags` — Create a new tag
-Returns the created tag object.
+* `POST /tags` — Create a new tag <br>
+* Returns the created tag object. *
 
-* `GET /tags/{tag_id}/affected-count` — Get number of totes using the tag
-Returns the count of totes that have this tag applied.
+* `GET /tags/{tag_id}/affected-count` — Get number of totes using the tag <br>
+* Returns the count of totes that have this tag applied. *
 
-* `PATCH /tags/{tag_id}` — Rename a tag
-Renames the tag and updates all totes to replace old tag name with the new one.
+* `PATCH /tags/{tag_id}` — Rename a tag <br>
+* Renames the tag and updates all totes to replace old tag name with the new one. *
 
-* `DELETE /tags/{tag_id}` — Delete a tag
-Deletes the tag and removes it from all totes referencing it.
+* `DELETE /tags/{tag_id}` — Delete a tag <br>
+* Deletes the tag and removes it from all totes referencing it. *
 
 ### Location Routes
 
-* `GET /locations` — List all locations  
-  Returns a JSON object with all locations.
+* `GET /locations` — List all locations <br>
+* Returns a JSON object with all locations. *
 
-* `POST /locations` — Create a new location  
-  Returns the created location object.
+* `POST /locations` — Create a new location <br>
+* Returns the created location object. *
 
-* `GET /locations/{location_id}/affected-count` — Get number of totes assigned to the location  
-  Returns the count of totes that have this location assigned.
+* `GET /locations/{location_id}/affected-count` — Get number of totes assigned to the location <br>
+* Returns the count of totes that have this location assigned. *
 
-* `PATCH /locations/{location_id}` — Rename a location  
-  Renames the location and updates all totes to replace the old location name with the new one.
+* `PATCH /locations/{location_id}` — Rename a location <br>
+* Renames the location and updates all totes to replace the old location name with the new one. *
 
-* `DELETE /locations/{location_id}` — Delete a location  
-  Deletes the location and removes it from all totes referencing it.
+* `DELETE /locations/{location_id}` — Delete a location <br>
+* Deletes the location and removes it from all totes referencing it. *
 
 ### Status Routes
 
-* `GET /statuses` — List all statuses  
-  Returns a JSON object with all statuses.
+* `GET /statuses` — List all statuses <br>
+* Returns a JSON object with all statuses. *
 
-* `POST /statuses` — Create a new status  
-  Returns the created status object.
+* `POST /statuses` — Create a new status <br>
+* Returns the created status object. *
 
-* `GET /statuses/{status_id}/affected-count` — Get number of totes assigned this status  
-  Returns the count of totes that have this status applied.
+* `GET /statuses/{status_id}/affected-count` — Get number of totes assigned this status <br> 
+* Returns the count of totes that have this status applied. *
 
-* `PATCH /statuses/{status_id}` — Rename a status  
-  Renames the status and updates all totes to replace the old status name with the new one.
+* `PATCH /statuses/{status_id}` — Rename a status <br>
+* Renames the status and updates all totes to replace the old status name with the new one. *
 
-* `DELETE /statuses/{status_id}` — Delete a status  
-  Deletes the status and removes it from all totes referencing it.
+* `DELETE /statuses/{status_id}` — Delete a status <br>
+* Deletes the status and removes it from all totes referencing it. *
 
 
 ### Batch Routes
