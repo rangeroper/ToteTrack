@@ -118,7 +118,7 @@ export default function ToteList() {
     return (
       <div className="loading-container">
         <LoaderCircle className="loading-icon spin" />
-        <p className="loading-text">Fetching your totes...</p>
+        <p className="loading-text">Spinning up our sloooooow servers now so we can fetch your totes...☕</p>
       </div>
     );
   }
