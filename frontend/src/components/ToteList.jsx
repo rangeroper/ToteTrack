@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import FilterSortBar from "./FilterSortBar";
+import { LoaderCircle } from "lucide-react";
 import "../components/ToteList.css";
 
 export default function ToteList() {
@@ -90,7 +91,15 @@ export default function ToteList() {
     }));
   };
 
-  if (loading) return <p>Loading totes...</p>;
+  if (loading) {
+    return (
+      <div className="loading-container">
+        <LoaderCircle className="loading-icon spin" />
+        <p className="loading-text">Fetching your totes...</p>
+      </div>
+    );
+  }
+
   if (error) return <p style={{ color: "red" }}>Error: {error}</p>;
 
   return (

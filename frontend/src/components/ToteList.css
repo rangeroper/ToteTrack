@@ -207,6 +207,66 @@ th:hover {
   cursor: pointer;
 }
 
+.loading-container {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.95);
+  z-index: 1000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.loading-icon {
+  width: 48px;
+  height: 48px;
+  color: #3498db;
+  margin-bottom: 10px;
+}
+
+/* Spinner rotation */
+.spin {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Optional fade-in effect */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.loading-text {
+  font-size: 1.25rem;
+  color: #333;
+  font-weight: 500;
+  animation: slideUp 0.4s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(10px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
 
 /* Responsive: Mobile Tables */
 /* On small screens, convert the table to block cards */
