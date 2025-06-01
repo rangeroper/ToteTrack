@@ -25,8 +25,6 @@ Add photos of your tote contents to never forget what you’ve stored inside. Sa
 ### Prerequisites
 
 * Python 3.10.9
-* Node.js 20.16.0
-* npm 10.8.1
 * MongoDB
 
 ## 🔧 Backend Setup (FastAPI)
