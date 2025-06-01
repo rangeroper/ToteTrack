@@ -112,9 +112,8 @@
 }
 
 .action-buttons {
-  display: flex;
-  gap: 8px;
-  align-items: center;
+  text-align: center;
+  vertical-align: middle;
   border: none !important;
 }
 
