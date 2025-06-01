@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import Settings from "./Settings"; // adjust if needed
+import { Package, Settings as SettingsIcon } from "lucide-react";
+import Settings from "./Settings";
 
 export default function Header() {
   const [showSettings, setShowSettings] = useState(false);
@@ -9,76 +10,66 @@ export default function Header() {
     <>
       <style>
         {`
-          /* ---------- Desktop / Default Styles ---------- */
+          /* ---------- Base Styles ---------- */
           .header-container {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 1rem;
-            background-color: #282c34;
+            padding: 1rem 1.5rem;
+            background-color: #1e1e2f;
             color: white;
-            box-sizing: border-box;
             width: 100%;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
           }
 
           .header-link {
-            text-decoration: none;
-            color: white;
             display: flex;
             align-items: center;
-            flex-shrink: 1;
-            min-width: 0;
+            text-decoration: none;
+            color: white;
+            gap: 0.5rem;
           }
 
           .header-icon {
-            font-weight: bold;
-            font-size: 1.5rem;
-            margin-right: 0.5rem;
+            flex-shrink: 0;
           }
 
           .header-title {
-            margin: 0;
-            font-size: 1.25rem;
+            font-size: 1.35rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
             white-space: nowrap;
-            text-overflow: ellipsis;
             overflow: hidden;
-            flex-grow: 1;
-            min-width: 0;
+            text-overflow: ellipsis;
+            transition: opacity 0.3s ease;
           }
 
           .header-nav {
             display: flex;
-            justify-content: flex-end;
             align-items: center;
-            /* NO flex-basis here */
           }
 
           .settings-btn {
-            background-color: transparent;
-            border: 1px solid white;
-            border-radius: 4px;
+            background: none;
+            border: none;
             color: white;
-            padding: 0.3rem 0.8rem;
             cursor: pointer;
-            font-weight: bold;
-            font-size: 1rem;
+            padding: 0.4rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: color 0.2s ease;
           }
 
-          /* ---------- Mobile Styles (max-width: 600px) ---------- */
+          .settings-btn:hover {
+            color: #4a90e2;
+          }
+
+          /* ---------- Mobile (max-width: 600px) ---------- */
           @media (max-width: 600px) {
-            .header-container {
-              flex-direction: column;
-              align-items: flex-start;
-            }
             .header-title {
-              font-size: 1rem;
-              white-space: normal;
-              overflow: visible;
-            }
-            .header-nav {
-              width: 100%;
-              justify-content: flex-end;
-              margin-top: 0.5rem;
+              display: none;
             }
           }
         `}
@@ -86,9 +77,7 @@ export default function Header() {
 
       <header className="header-container">
         <Link to="/" className="header-link">
-          <div className="header-icon" aria-label="Truck icon" role="img">
-            📦
-          </div>
+          <Package className="header-icon" size={28} strokeWidth={2.2} />
           <h1 className="header-title">Inventory Management Suite</h1>
         </Link>
 
@@ -97,8 +86,9 @@ export default function Header() {
             onClick={() => setShowSettings(true)}
             className="settings-btn"
             aria-label="Open Settings"
+            title="Settings"
           >
-            Settings ⚙️
+            <SettingsIcon size={24} strokeWidth={2} />
           </button>
         </nav>
 
