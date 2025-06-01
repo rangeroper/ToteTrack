@@ -131,6 +131,10 @@ Each tote gets a scannable QR code for fast access and updates.
 💻 **Modern, responsive UI built with React**  
 Works beautifully on both desktop and mobile devices.
 
+⚙️ Unified Settings Page
+Centralized management for profiles, accounts, tags, locations, statuses, and permissions
+![Settings Page](./frontend/public/project/images/settings_detail.png)
+
 
 ---
 
@@ -179,7 +183,6 @@ inventory_management/
 * Global inventory dashboard showing summary across all locations (totes, items)
 * Color-coded QR codes
 * Flexible data export with permission-based access — export all data or filter by account, user profile, storage location, specific tote, or individual item
-* Unified Settings Page — manage tags, locations, and statuses in one place, along with account and profile configuration settings
 * AI - have gpt or claude or similar models auto-generate or recommend descriptions, estimated values, or any other assisted tasks
 
 ---
