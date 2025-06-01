@@ -12,15 +12,7 @@
 
 <br>
 
-<iframe 
-src="https://ghbtns.com/github-btn.html?user=rangeroper&repo=inventory_management_suite&type=star&count=true&size=large" frameborder="0"
-scrolling="0"
-width="170"
-height="30"
-title="GitHub">
-</iframe> 
-
-If you would like to help spread the word about ToteTrack, please consider starring the repo!
+✨ If you would like to help spread the word about ToteTrack, please consider starring the repo!
 
 A full-stack inventory management application built with FastAPI (backend) and React (frontend). It offers efficient storage control with powerful tagging, filtering, and fast item manipulation. Each tote is assigned a unique QR code for instant tracking (point your camera at the QR code and be redirected to the totes page), content visibility, and precise location identification at a glance.
 
