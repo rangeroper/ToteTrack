@@ -1,6 +1,5 @@
 # Inventory Management Suite <img src="https://github.com/rangeroper/inventory_management_suite/blob/main/frontend/public/project/images/box.svg" width="36" height="36" alt="box icon" />
 
-|:-------------------------------------------------------------------------------------------------------------------------------:|
 | <div align="center">
   <a href="https://your-demo-url.com" target="_blank" style="text-decoration:none; margin-right: 40px;">
     🚀 Demo
