@@ -3,9 +3,11 @@ import React, { useEffect } from "react";
 export default function Modal({ children, onClose, showBackButton = false, onBack, modalStyle = {} }) {
   useEffect(() => {
     document.body.style.overflow = "hidden"; // Lock scroll
+    document.documentElement.style.overflow = "hidden";
 
     return () => {
       document.body.style.overflow = ""; // Unlock on modal close/unmount
+      document.documentElement.style.overflow = "";
     };
   }, []);
 
@@ -47,17 +49,17 @@ const modalStyles = {
     minWidth: "300px",
     maxWidth: "90vw",
     maxHeight: "65vh",
-    height: "auto", 
+    height: "auto",
     display: "flex",
-    flexDirection: "column", 
-    overflow: "hidden",
+    flexDirection: "column",
+    overflowY: "auto",      // Allow vertical scrolling inside the modal
+    overflowX: "hidden",    // Prevent horizontal scrolling inside the modal
     position: "relative",
     transform: "translateZ(0)",
     WebkitBackfaceVisibility: "hidden",
     backfaceVisibility: "hidden",
     boxShadow: "0 12px 24px rgba(0,0,0,0.2)",
   },
-
   closeBtn: {
     position: "absolute",
     top: 10,
