@@ -1,153 +1,275 @@
 import React, { useState } from "react";
+import { User, Bell, Tag, MapPin, BarChart } from "lucide-react";
 import Modal from "./Modal";
 import TagsManager from "./TagsManager";
 import LocationsManager from "./LocationsManager";
 import StatusesManager from "./StatusesManager";
 
+// import AccountSettings from "./AccountSettings";
+// import NotificationSettings from "./NotificationSettings";
+
 export default function Settings({ onClose }) {
   const [activeSection, setActiveSection] = useState(null);
-  const [hoverIndex, setHoverIndex] = useState(null);
 
-  const buttonStyle = {
-    width: "100%",
-    padding: "1rem",
-    fontSize: "1rem",
-    fontWeight: "600",
-    borderRadius: 0,
-    border: "none",
-    backgroundColor: "#4a90e2",
-    color: "white",
-    cursor: "pointer",
-    transition: "background-color 0.3s ease",
-    textAlign: "left",
-  };
+  // Define all sections in one place, now using Lucide icons
+  const sections = [
+    {
+      group: "Account",
+      items: [
+        {
+          key: "account",
+          label: "Account / Profile",
+          icon: <User size={32} className="card-icon" />,
+          component: null, // AccountSettings
+        },
+      ],
+    },
+    {
+      group: "Notifications",
+      items: [
+        {
+          key: "notifications",
+          label: "Notification Preferences",
+          icon: <Bell size={32} className="card-icon" />,
+          component: null, // NotificationSettings
+        },
+      ],
+    },
+    {
+      group: "Data Management",
+      items: [
+        {
+          key: "tags",
+          label: "Manage Tags",
+          icon: <Tag size={32} className="card-icon" />,
+          component: TagsManager,
+        },
+        {
+          key: "locations",
+          label: "Manage Locations",
+          icon: <MapPin size={32} className="card-icon" />,
+          component: LocationsManager,
+        },
+        {
+          key: "statuses",
+          label: "Manage Statuses",
+          icon: <BarChart size={32} className="card-icon" />,
+          component: StatusesManager,
+        },
+      ],
+    },
+  ];
 
-  const buttonHoverStyle = {
-    backgroundColor: "#357ABD",
-  };
+  // When a section is active, render its component
+  const renderActive = () => {
+    if (!activeSection) {
+      return (
+        <>
+          <div className="settings-header">
+            <h2>Settings</h2>
+          </div>
 
-  // Helper for section header style
-  const sectionHeaderStyle = {
-    marginTop: "2rem",
-    marginBottom: "0.5rem",
-    paddingLeft: "1rem",
-    fontWeight: "700",
-    fontSize: "1.125rem",
-    color: "rgb(80, 80, 80)",
-    borderBottom: "1px solid #ddd",
-  };
-
-  // Helper for container spacing between button groups
-  const groupContainerStyle = {
-    padding: "0 1rem",
-  };
-
-  const renderSection = () => {
-    switch (activeSection) {
-      case "tags":
-        return <TagsManager onClose={() => setActiveSection(null)} />;
-      case "locations":
-         return <LocationsManager onClose={() => setActiveSection(null)} />;
-       case "statuses":
-         return <StatusesManager onClose={() => setActiveSection(null)} />;
-      // case "account":
-      //   return <AccountSettings onClose={() => setActiveSection(null)} />;
-      // case "notifications":
-      //   return <NotificationSettings onClose={() => setActiveSection(null)} />;
-      default:
-        return (
-          <>
-            <div style={{ padding: "1.5rem 2rem" }}>
-              <h2
-                style={{
-                  marginTop: 0,
-                  fontWeight: "700",
-                  fontSize: "1.75rem",
-                  color: "rgb(51, 51, 51)",
-                }}
-              >
-                Settings
-              </h2>
+          {sections.map(({ group, items }) => (
+            <div className="section-group" key={group}>
+              <div className="section-title">{group}</div>
+              <div className="section-cards">
+                {items.map(({ key, label, icon }) => (
+                  <div
+                    key={key}
+                    className="card-button"
+                    onClick={() => setActiveSection(key)}
+                  >
+                    {icon}
+                    <div className="card-label">{label}</div>
+                  </div>
+                ))}
+              </div>
             </div>
-
-            {/* Account Section */}
-            <div style={groupContainerStyle}>
-              <div style={sectionHeaderStyle}>Account</div>
-              <button
-                style={hoverIndex === 0 ? { ...buttonStyle, ...buttonHoverStyle } : buttonStyle}
-                onClick={() => setActiveSection("account")}
-                onMouseEnter={() => setHoverIndex(0)}
-                onMouseLeave={() => setHoverIndex(null)}
-              >
-                Account / Profile
-              </button>
-            </div>
-
-            {/* Notifications Section */}
-            <div style={groupContainerStyle}>
-              <div style={sectionHeaderStyle}>Notifications</div>
-              <button
-                style={hoverIndex === 1 ? { ...buttonStyle, ...buttonHoverStyle } : buttonStyle}
-                onClick={() => setActiveSection("notifications")}
-                onMouseEnter={() => setHoverIndex(1)}
-                onMouseLeave={() => setHoverIndex(null)}
-              >
-                Notification Preferences
-              </button>
-            </div>
-
-            {/* Data Management Section */}
-            <div style={groupContainerStyle}>
-              <div style={sectionHeaderStyle}>Data Management</div>
-              <button
-                style={hoverIndex === 2 ? { ...buttonStyle, ...buttonHoverStyle } : buttonStyle}
-                onClick={() => setActiveSection("tags")}
-                onMouseEnter={() => setHoverIndex(2)}
-                onMouseLeave={() => setHoverIndex(null)}
-              >
-                Manage Tags
-              </button>
-
-              <button
-                style={hoverIndex === 3 ? { ...buttonStyle, ...buttonHoverStyle } : buttonStyle}
-                onClick={() => setActiveSection("locations")}
-                onMouseEnter={() => setHoverIndex(3)}
-                onMouseLeave={() => setHoverIndex(null)}
-              >
-                Manage Locations
-              </button>
-
-              <button
-                style={hoverIndex === 4 ? { ...buttonStyle, ...buttonHoverStyle } : buttonStyle}
-                onClick={() => setActiveSection("statuses")}
-                onMouseEnter={() => setHoverIndex(4)}
-                onMouseLeave={() => setHoverIndex(null)}
-              >
-                Manage Statuses
-              </button>
-            </div>
-          </>
-        );
+          ))}
+        </>
+      );
     }
+
+    // Find and render the chosen section component
+    for (const { items } of sections) {
+      const match = items.find((item) => item.key === activeSection);
+      if (match && match.component) {
+        const SectionComp = match.component;
+        return <SectionComp onClose={() => setActiveSection(null)} />;
+      }
+    }
+
+    return null; // no match
   };
 
   return (
-    <Modal
-      onClose={onClose}
-      showBackButton={!!activeSection}
-      onBack={() => setActiveSection(null)}
-      modalStyle={{
-        width: "360px",
-        height: "60vh",
-        maxHeight: "90vh",
-        overflowY: "auto",
-        borderRadius: "6px 6px 0px 0px",
-        padding: 0,
-        boxShadow: "0 12px 24px rgba(0,0,0,0.2)",
-        backgroundColor: "#fff",
-      }}
-    >
-      {renderSection()}
-    </Modal>
+    <>
+      <style>
+        {`
+          /* ----------------------------------------------------
+             Container & Header Styles
+          ---------------------------------------------------- */
+          .settings-header {
+            padding: 1.5rem 2rem;
+            background-color: #fafafa;
+            border-bottom: 1px solid #e0e0e0;
+          }
+          .settings-header h2 {
+            margin: 0;
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: #333;
+          }
+
+          /* ----------------------------------------------------
+             Section Group Title
+          ---------------------------------------------------- */
+          .section-group {
+            margin-top: 2rem;
+            padding: 0 1rem;
+          }
+          .section-title {
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: #505050;
+            margin-bottom: 1rem;
+            position: relative;
+          }
+          .section-title::after {
+            content: "";
+            display: block;
+            width: 40px;
+            height: 3px;
+            background-color: #4a90e2;
+            margin-top: 4px;
+            border-radius: 2px;
+          }
+
+          /* ----------------------------------------------------
+             Card‐Style Buttons
+          ---------------------------------------------------- */
+          .section-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 1rem;
+          }
+          .card-button {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: #ffffff;
+            border-radius: 8px;
+            padding: 1rem;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+            cursor: pointer;
+            transition: box-shadow 0.2s ease, transform 0.2s ease, background-color 0.2s ease;
+            text-align: center;
+          }
+          .card-button:hover {
+            background-color: #f0f8ff;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
+          }
+          .card-icon {
+            color: #4a90e2;
+            margin-bottom: 0.5rem;
+          }
+          .card-label {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #333;
+          }
+
+          /* ----------------------------------------------------
+             Decorative Footer (SVG Wave)
+          ---------------------------------------------------- */
+          .settings-footer {
+            margin-top: 2rem;
+            overflow: hidden; /* ensure wave doesn't overflow */
+            line-height: 0;  /* remove extra whitespace */
+          }
+          .settings-footer svg {
+            display: block;
+            width: 100%;
+            height: 40px;
+          }
+          .wave-fill {
+            fill: #4a90e2;
+          }
+
+          /* ----------------------------------------------------
+             Modal container override
+          ---------------------------------------------------- */
+          .settings-modal {
+            width: 400px;
+            max-height: 90vh;
+            overflow-y: auto;
+            border-radius: 8px 8px 0 0;
+            padding: 0;
+            background-color: #fff;
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+          }
+
+          /* ----------------------------------------------------
+             Mobile Adaptation (<= 600px)
+          ---------------------------------------------------- */
+          @media (max-width: 600px) {
+            .settings-modal {
+              width: 100%;
+              height: 100%;
+              border-radius: 0;
+            }
+            .section-group {
+              margin-top: 1.5rem;
+              padding: 0 0.5rem;
+            }
+            .section-title {
+              font-size: 1rem;
+            }
+            .section-cards {
+              grid-template-columns: 1fr;
+              gap: 0.75rem;
+            }
+            .card-button {
+              padding: 0.75rem;
+            }
+            .card-icon {
+              margin-bottom: 0.4rem;
+            }
+            .card-label {
+              font-size: 0.95rem;
+            }
+            /* Footer wave height scales down a bit on mobile */
+            .settings-footer svg {
+              height: 30px;
+            }
+          }
+        `}
+      </style>
+
+      <Modal
+        onClose={onClose}
+        showBackButton={!!activeSection}
+        onBack={() => setActiveSection(null)}
+        modalClass="settings-modal"
+      >
+        {renderActive()}
+
+        {/* Decorative footer with an SVG wave */}
+        <div className="settings-footer">
+          <svg
+            viewBox="0 0 1200 40"
+            preserveAspectRatio="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M0,0 C300,40 900,-40 1200,0 L1200,40 L0,40 Z"
+              className="wave-fill"
+            />
+          </svg>
+        </div>
+      </Modal>
+    </>
   );
 }
