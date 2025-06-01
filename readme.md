@@ -143,73 +143,73 @@ Centralized management for profiles, accounts, tags, locations, statuses, and pe
 ### Tote Routes
 
 * `GET /totes` - Get all totes <br>
-* Returns a JSON object with all totes. *
+_* Returns a JSON object with all totes._
 
 * `GET /totes/{id}` - Get a tote by ID <br>
-* Returns the tote matching the MongoDB ObjectId. *
+_Returns the tote matching the MongoDB ObjectId._
 
 * `POST /totes` - Create a new tote <br>
-* Accepts form data (barcode required, optional description, weight, tags, status, location, images).  Generates a QR code for the new tote. *
+_Accepts form data (barcode required, optional description, weight, tags, status, location, images).  Generates a QR code for the new tote._
 
 * `PATCH /totes/{id}` - Edit tote (partial) <br>
-* Accepts form data for description, weight, tags, status, location, existingImages (base64), and new image uploads.  Merges new images with existing ones and updates the tote. *
+_Accepts form data for description, weight, tags, status, location, existingImages (base64), and new image uploads.  Merges new images with existing ones and updates the tote._
 
 * `DELETE /totes/{id}` - Delete tote <br>
-* Deletes the tote matching the MongoDB ObjectId. *
+_Deletes the tote matching the MongoDB ObjectId._
 
 ### Tag Routes
 
 * `GET /tags` — List all tags <br>
-* Returns a JSON object with all tags. *
+_Returns a JSON object with all tags._
 
 * `POST /tags` — Create a new tag <br>
-* Returns the created tag object. *
+_Returns the created tag object._
 
 * `GET /tags/{tag_id}/affected-count` — Get number of totes using the tag <br>
-* Returns the count of totes that have this tag applied. *
+_Returns the count of totes that have this tag applied._
 
 * `PATCH /tags/{tag_id}` — Rename a tag <br>
-* Renames the tag and updates all totes to replace old tag name with the new one. *
+_Renames the tag and updates all totes to replace old tag name with the new one._
 
 * `DELETE /tags/{tag_id}` — Delete a tag <br>
-* Deletes the tag and removes it from all totes referencing it. *
+_Deletes the tag and removes it from all totes referencing it._
 
 ### Location Routes
 
 * `GET /locations` — List all locations <br>
-* Returns a JSON object with all locations. *
+_Returns a JSON object with all locations._
 
 * `POST /locations` — Create a new location <br>
-* Returns the created location object. *
+_Returns the created location object._
 
 * `GET /locations/{location_id}/affected-count` — Get number of totes assigned to the location <br>
-* Returns the count of totes that have this location assigned. *
+_Returns the count of totes that have this location assigned._
 
 * `PATCH /locations/{location_id}` — Rename a location <br>
-* Renames the location and updates all totes to replace the old location name with the new one. *
+_Renames the location and updates all totes to replace the old location name with the new one._
 
 * `DELETE /locations/{location_id}` — Delete a location <br>
-* Deletes the location and removes it from all totes referencing it. *
+_Deletes the location and removes it from all totes referencing it._
 
 ### Status Routes
 
 * `GET /statuses` — List all statuses <br>
-* Returns a JSON object with all statuses. *
+_Returns a JSON object with all statuses._
 
 * `POST /statuses` — Create a new status <br>
-* Returns the created status object. *
+_Returns the created status object._
 
 * `GET /statuses/{status_id}/affected-count` — Get number of totes assigned this status <br> 
-* Returns the count of totes that have this status applied. *
+_Returns the count of totes that have this status applied._
 
 * `PATCH /statuses/{status_id}` — Rename a status <br>
-* Renames the status and updates all totes to replace the old status name with the new one. *
+_Renames the status and updates all totes to replace the old status name with the new one._
 
 * `DELETE /statuses/{status_id}` — Delete a status <br>
-* Deletes the status and removes it from all totes referencing it. *
-
+_Deletes the status and removes it from all totes referencing it._
 
 ### Batch Routes
+
 * coming soon!
 
 ---
