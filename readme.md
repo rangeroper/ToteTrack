@@ -4,6 +4,7 @@
   <a href="https://your-demo-url.com" target="_blank" style="text-decoration:none; margin-right: 40px;">
     🚀 Demo
   </a>
+  •
   <a href="https://github.com/rangeroper/inventory_management_suite/issues/new" target="_blank" style="text-decoration:none;">
     🛠️ Contribute
   </a>
