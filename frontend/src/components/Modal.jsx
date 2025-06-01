@@ -38,14 +38,18 @@ const modalStyles = {
     borderRadius: 12,
     minWidth: "300px",
     maxWidth: "90vw",
-    maxHeight: "90vh",
+    maxHeight: "65vh",
+    height: "auto", 
+    display: "flex",
+    flexDirection: "column", 
     overflow: "hidden",
     position: "relative",
-    transform: "translateZ(0)", // Helps prevent bleed from background
+    transform: "translateZ(0)",
     WebkitBackfaceVisibility: "hidden",
     backfaceVisibility: "hidden",
-    boxShadow: "0 12px 24px rgba(0,0,0,0.2)", // Optional: improves modal contrast
+    boxShadow: "0 12px 24px rgba(0,0,0,0.2)",
   },
+
   closeBtn: {
     position: "absolute",
     top: 10,
