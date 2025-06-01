@@ -79,24 +79,24 @@ This will run the frontend on `http://localhost:3000`.
 ## ✨ Features
 
 📦 **Create, edit, and delete inventory totes**  
-Easily manage your storage units with intuitive controls.
+_Easily manage your storage units with intuitive controls._
 
 ![Edit Tote Feature](./frontend/public/project/images/edit_tote.png)
 
 ---
 
 🏷️ **Assign and manage tags for easier classification**  
-Organize your totes with custom tags to simplify sorting and searching.
+_Organize your totes with custom tags to simplify sorting and searching._
 
 ---
 
 📍 **Assign and manage multiple storage locations** *(coming soon)*  
-Track items across different warehouses, units, or facilities.
+_Track items across different warehouses, units, or facilities._
 
 ---
 
 🔖 **Assign and manage statuses** *(coming soon – free text for now)*  
-Use status labels to identify item condition, progress, or availability.
+_Use status labels to identify item condition, progress, or availability._
 
 ---
 
@@ -112,19 +112,19 @@ Filter by:
 ---
 
 🧾 **View contents of individual totes**  
-See everything stored inside a tote — including quantity, images, and notes.
+_See everything stored inside a tote — including quantity, images, and notes._
 
 ![Tote Detail Page](./frontend/public/project/images/tote_detail.png)
 
 ---
 
 📍 **Track tote location details**  
-Store and view tote position by aisle, row, and shelf.
+_Store and view tote position by aisle, row, and shelf._
 
 ---
 
 ⚡ **Scan or generate QR codes for each tote**  
-Each tote gets a scannable QR code for fast access and updates.
+_Each tote gets a scannable QR code for fast access and updates._
 
 ---
 
@@ -133,6 +133,7 @@ Works beautifully on both desktop and mobile devices.
 
 ⚙️ Unified Settings Page
 Centralized management for profiles, accounts, tags, locations, statuses, and permissions
+
 ![Settings Page](./frontend/public/project/images/settings_detail.png)
 
 
@@ -143,7 +144,7 @@ Centralized management for profiles, accounts, tags, locations, statuses, and pe
 ### Tote Routes
 
 * `GET /totes` - Get all totes <br>
-_* Returns a JSON object with all totes._
+_Returns a JSON object with all totes._
 
 * `GET /totes/{id}` - Get a tote by ID <br>
 _Returns the tote matching the MongoDB ObjectId._
