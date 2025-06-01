@@ -117,7 +117,14 @@ export default function useToteForm() {
 
     // Append basic form data fields
     Object.entries(formData).forEach(([key, value]) => {
-      data.append(key, value);
+      if (key === "weight" && (value === "" || value == null)) {
+        // Skip appending empty weight to avoid backend parsing errors
+        return;
+      }
+      // Also skip undefined or null values
+      if (value !== undefined && value !== null) {
+        data.append(key, value);
+      }
     });
 
     // Append selected statuses
@@ -146,9 +153,13 @@ export default function useToteForm() {
 
     try {
       if (isEdit) {
-        await axios.patch(`${API_BASE_URL}/totes/${toteId}`, data);
+        await axios.patch(`${API_BASE_URL}/totes/${toteId}`, data, {
+          headers: { "Content-Type": "multipart/form-data" },
+        });
       } else {
-        await axios.post(`${API_BASE_URL}/totes`, data);
+        await axios.post(`${API_BASE_URL}/totes`, data, {
+          headers: { "Content-Type": "multipart/form-data" },
+        });
       }
 
       navigate("/totes");
