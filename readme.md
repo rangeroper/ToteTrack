@@ -29,8 +29,6 @@ Add photos of your tote contents to never forget what you’ve stored inside. Sa
 * npm 10.8.1
 * MongoDB
 
----
-
 ## 🔧 Backend Setup (FastAPI)
 
 Navigate to the backend folder:
@@ -62,8 +60,6 @@ uvicorn app.main:app --reload
 
 By default, this runs at `http://127.0.0.1:8000`.
 
----
-
 ## 💻 Frontend Setup (React)
 
 Navigate to the frontend folder:
@@ -85,8 +81,6 @@ npm start
 ```
 
 This will run the frontend on `http://localhost:3000`.
-
----
 
 ## ✨ Features
 
@@ -225,8 +219,6 @@ _Deletes the status and removes it from all totes referencing it._
 
 * coming soon!
 
----
-
 ## 🗂 Folder Structure
 
 ```
@@ -235,8 +227,6 @@ inventory_management/
 ├── frontend/          # React frontend
 ├── README.md
 ```
-
----
 
 ## ✅ Coming Soon
 
@@ -252,8 +242,6 @@ inventory_management/
 * Color-coded QR codes
 * Flexible data export with permission-based access — export all data or filter by account, user profile, storage location, specific tote, or individual item
 * AI - have gpt or claude or similar models auto-generate or recommend descriptions, estimated values, or any other assisted tasks
-
----
 
 ## 📄 License
 
