@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import FilterSortBar from "./FilterSortBar";
-import { LoaderCircle } from "lucide-react";
+import { LoaderCircle, ChevronUp, ChevronDown } from "lucide-react";
 import "../components/ToteList.css";
 
 export default function ToteList() {
@@ -65,8 +65,30 @@ export default function ToteList() {
   };
 
   const renderSortIcon = (key) => {
-    if (sortConfig.key !== key) return null;
-    return sortConfig.direction === "asc" ? "▲" : "▼";
+    const isSortable = !!sortableColumns[key];
+    const isActive = sortConfig?.key === key;
+
+    if (!isSortable) return null;
+
+    if (!isActive) {
+      return (
+        <div style={{ display: "inline-block", marginLeft: 6, opacity: 0.3 }}>
+          <ChevronUp size={12} style={{ display: "block", transform: "translateY(2px)" }} />
+          <ChevronDown size={12} style={{ display: "block", transform: "translateY(-2px)" }} />
+        </div>
+      );
+    }
+
+    const isAsc = sortConfig.direction === "asc";
+    return (
+      <div style={{ display: "inline-block", marginLeft: 6 }}>
+        {isAsc ? (
+          <ChevronUp size={16} color="#0abde3" />
+        ) : (
+          <ChevronDown size={16} color="#ee5253" />
+        )}
+      </div>
+    );
   };
 
   const handleDelete = async (idToDelete, e) => {
