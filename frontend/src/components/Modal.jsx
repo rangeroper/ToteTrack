@@ -66,7 +66,11 @@ const modalStyles = {
     right: 15,
     fontSize: "1.5rem",
     border: "none",
-    background: "none",
+    background: "white",   // add a background so the × isn’t blended into modal content
     cursor: "pointer",
+    zIndex: 1100,          // higher than overlay & modal to ensure it’s clickable and visible
+    padding: "4px 8px",    // optional, makes the button easier to tap on mobile
+    borderRadius: 6,       // optional for style
+    boxShadow: "0 0 6px rgba(0,0,0,0.1)", // optional subtle shadow for visibility
   },
 };
